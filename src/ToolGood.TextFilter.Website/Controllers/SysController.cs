@@ -66,9 +66,9 @@ namespace ToolGood.TextFilter.Controllers
 
                 SysApplication.SetTextFilterNoticeUrl(request.TextFilterNoticeUrl);
                 SysApplication.SetTextReplaceNoticeUrl(request.TextReplaceNoticeUrl);
-                SysApplication.SetImageFilterNoticeUrl(request.ImageFilterNoticeUrl);
-                SysApplication.SetImageClassifyNoticeUrl(request.ImageClassifyNoticeUrl);
-                SysApplication.SetImageTempPath(request.ImageTempPath);
+                //SysApplication.SetImageFilterNoticeUrl(request.ImageFilterNoticeUrl);
+                //SysApplication.SetImageClassifyNoticeUrl(request.ImageClassifyNoticeUrl);
+                //SysApplication.SetImageTempPath(request.ImageTempPath);
                 SysApplication.SetSkipword(request.Skipword);
 
             } catch (Exception ex) {
@@ -127,33 +127,33 @@ namespace ToolGood.TextFilter.Controllers
             return new JsonResult(dict);
         }
 
-        [Route("/api/sys-Update-Licence")]
-        public async Task<IActionResult> UpdateLicence(UpdateLicenceRequest request)
-        {
-            CommonResult result = new CommonResult();
+        //[Route("/api/sys-Update-Licence")]
+        //public async Task<IActionResult> UpdateLicence(UpdateLicenceRequest request)
+        //{
+        //    CommonResult result = new CommonResult();
 
-            try {
-                #region Check
-                if (this.Request.ContentType.Contains("application/json", StringComparison.OrdinalIgnoreCase)) {
-                    StreamReader streamReader = new StreamReader(Request.Body);
-                    var txt = await streamReader.ReadToEndAsync();
-                    streamReader.Close();
-                    request = JsonConvert.DeserializeObject<UpdateLicenceRequest>(txt);
-                }
-                if (request == null || request.Licence == null) {
-                    result.Code = 1;
-                    result.Message = "error: interval is null.";
-                    return Content(result.ToString(), "application/json");
-                }
-                #endregion
+        //    try {
+        //        #region Check
+        //        if (this.Request.ContentType.Contains("application/json", StringComparison.OrdinalIgnoreCase)) {
+        //            StreamReader streamReader = new StreamReader(Request.Body);
+        //            var txt = await streamReader.ReadToEndAsync();
+        //            streamReader.Close();
+        //            request = JsonConvert.DeserializeObject<UpdateLicenceRequest>(txt);
+        //        }
+        //        if (request == null || request.Licence == null) {
+        //            result.Code = 1;
+        //            result.Message = "error: interval is null.";
+        //            return Content(result.ToString(), "application/json");
+        //        }
+        //        #endregion
 
-                SysApplication.UpdateLicence(request.Licence);
-            } catch (Exception ex) {
-                result.Code = 1;
-                result.Message = ex.Message;
-            }
-            return Content(result.ToString(), "application/json");
-        }
+        //        SysApplication.UpdateLicence(request.Licence);
+        //    } catch (Exception ex) {
+        //        result.Code = 1;
+        //        result.Message = ex.Message;
+        //    }
+        //    return Content(result.ToString(), "application/json");
+        //}
 
 
         [Route("/api/sys-init-Data")]
