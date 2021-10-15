@@ -54,5 +54,18 @@
 
 敏感信息过滤研究会，Q群：128994346
 
+### 敏感词相关文章
+1、[敏感词过滤方案那些事](https://www.cnblogs.com/toolgood/p/15208734.html)
+
+2、[普通公司敏感词审核制度](https://www.cnblogs.com/toolgood/p/15213549.html)
+
+3、[新人小白过滤敏感词方案](https://www.cnblogs.com/toolgood/p/15251918.html)
+
+4、[网络常用敏感词过滤方法](https://www.cnblogs.com/toolgood/p/15261554.html)
+
+5、[ToolGood.Words算法过滤敏感词优化原理](https://mianbaoduo.com/o/bread/YZ2Yk5hy)   （收费30元，一顿KFC）
+
+6、敏感词过滤中常遇的几个问题
+
 ## LICENSE
 >您可以在GPLv3许可证下使用它。请参阅LICENSE。
