@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+option csharp_namespace = "ToolGood.TextFilter";
+
+package toolgood.textfilter.api.GrpcBase;
+
+// The greeting service definition.
+service ImageFilterGrpc {
+  rpc ImageLocalFilter(ImageLocalGrpcRequest) returns (ImageFilterGrpcReply);
+  rpc ImageUploadFilter(ImageUploadGrpcRequest) returns (ImageFilterGrpcReply);
+  rpc ImageLocalFilterAsync(ImageLocalAsyncGrpcRequest) returns (ImageRequestIdGrpcReply);
+  rpc ImageUploadFilterAsync(ImageUploadAsyncGrpcRequest) returns (ImageRequestIdGrpcReply);
+
+}
+
+message ImageLocalGrpcRequest {
+  string path = 1;
+}
+message ImageUploadGrpcRequest{
+  bytes file = 1;
+}
+message ImageLocalAsyncGrpcRequest {
+  string path = 1;
+  string requestId = 2;
+  string url = 3;
+}
+message ImageUploadAsyncGrpcRequest{
+  bytes file = 1;
+  string requestId = 2;
+  string url = 3;
+}
+message ImageRequestIdGrpcReply {
+  int32 code = 1;// ·µ»ØÂë£º0) ³É¹¦£¬1) Ê§°Ü
+  string message = 2;
+  string requestId = 3;
+}
+
+message ImageFilterGrpcReply {
+  int32 code = 1;
+  string message = 2;
+  string requestId = 3;
+  float unsafe = 4;
+}
+message ImageClassifyGrpcReply {
+  int32 code = 1;
+  string message = 2;
+  string requestId = 3;
+  float porn = 4;
+  float bloody = 5;
+  float hentai = 6;
+  float lure = 7;
+  float sexy = 8;
+  float normal = 9;
+}

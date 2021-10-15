@@ -1,0 +1,92 @@
+syntax = "proto3";
+
+option csharp_namespace = "ToolGood.TextFilter";
+
+package toolgood.textfilter.api.GrpcBase;
+
+// The greeting service definition.
+service ImageClassifyGrpc {
+  rpc ImageLocalClassify(ImageLocalGrpcRequest2) returns (ImageClassifyGrpcReply2);
+  rpc ImageUploadClassify(ImageUploadGrpcRequest2) returns (ImageClassifyGrpcReply2);
+  rpc ImageLocalClassifyAsync(ImageLocalAsyncGrpcRequest2) returns (ImageRequestIdGrpcReply2);
+  rpc ImageUploadClassifyAsync(ImageUploadAsyncGrpcRequest2) returns (ImageRequestIdGrpcReply2);
+
+  rpc BrowserFilter(BrowserGrpcRequest) returns (ImageBrowserFilterGrpcReply);
+  rpc BrowserClassify(BrowserGrpcRequest) returns (ImageBrowserClassifyGrpcReply);
+
+  rpc BrowserFilterAsync(BrowserAsyncGrpcRequest) returns (ImageRequestIdGrpcReply2);
+  rpc BrowserClassifyAsync(BrowserAsyncGrpcRequest) returns (ImageRequestIdGrpcReply2);
+
+}
+
+message ImageLocalGrpcRequest2 {
+  string path = 1;
+}
+message ImageUploadGrpcRequest2{
+  bytes file = 1;
+}
+message ImageLocalAsyncGrpcRequest2 {
+  string path = 1;
+  string requestId = 2;
+  string url = 3;
+}
+message ImageUploadAsyncGrpcRequest2{
+  bytes file = 1;
+  string requestId = 2;
+  string url = 3;
+}
+message ImageRequestIdGrpcReply2 {
+  int32 code = 1;// ·µ»ØÂë£º0) ³É¹¦£¬1) Ê§°Ü
+  string message = 2;
+  string requestId = 3;
+}
+
+message ImageFilterGrpcReply2 {
+  int32 code = 1;
+  string message = 2;
+  string requestId = 3;
+  float unsafe = 4;
+}
+message ImageClassifyGrpcReply2 {
+  int32 code = 1;
+  string message = 2;
+  string requestId = 3;
+  float porn = 4;
+  float bloody = 5;
+  float hentai = 6;
+  float lure = 7;
+  float sexy = 8;
+  float normal = 9;
+}
+
+
+message ImageBrowserFilterGrpcReply {
+  int32 code = 1;
+  string message = 2;
+  string requestId = 3;
+  float unsafe = 4;
+}
+
+message ImageBrowserClassifyGrpcReply {
+  int32 code = 1;
+  string message = 2;
+  string requestId = 3;
+  float porn = 4;
+  float bloody = 5;
+  float hentai = 6;
+  float lure = 7;
+  float sexy = 8;
+  float normal = 9;
+}
+
+message BrowserGrpcRequest {
+  repeated float params = 1;
+}
+message BrowserAsyncGrpcRequest {
+  repeated float params = 1;
+  string requestId = 2;
+  string url = 3;
+}
+   
+
+ 
