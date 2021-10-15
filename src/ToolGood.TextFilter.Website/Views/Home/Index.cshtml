@@ -1,0 +1,166 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var hasImage = (bool)ViewData["hasImage"];
+    var hasBrowser = (bool)ViewData["hasBrowser"];
+    var hasGrpc = (bool)ViewData["hasGrpc"];
+}
+@section head{
+    <div style="background-color: #393D49;">
+        <div class="layui-container" style="padding: 0;">
+            <ul class="layui-nav" style="padding: 0;">
+                <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
+                <li class="layui-nav-item"><a href="/keywordTypes">敏感词管理</a></li>
+                <li class="layui-nav-item"><a href="/about">产品信息</a></li>
+                <li class="layui-nav-item"><a href="/legal">许可协议</a></li>
+                <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
+            </ul>
+        </div>
+    </div>
+}
+<div style="padding-top:10px;padding-bottom:10px;">
+    <fieldset class="layui-elem-field layui-field-title site-title">
+        <legend> 内容审核</legend>
+    </fieldset>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">类型：</label>
+                <div class="layui-input-inline">
+                    <select id="type">
+                        <option value="0">文本</option>
+                        <option value="1">Html</option>
+                        <option value="2">Json</option>
+                        <option value="3">Markdown</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">替换符：</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="replaceChar" value="*" autocomplete="off" class="layui-input" placeholder="【替换】需要输入此项">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <div class="layui-input-inline">
+                    <input type="checkbox" id="reviewReplace" name="reviewReplace" lay-filter="radio" value="false"  lay-skin="primary" title="【人工审核】替换" checked >
+                </div>
+                      <div class="layui-input-inline">
+                    <input type="checkbox" id="contactReplace" name="contactReplace" lay-filter="radio" value="false"  lay-skin="primary" title="【联系方式】替换" checked >
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">内容：</label>
+            <div class="layui-input-block">
+                <textarea id="txt" class="layui-input" style="height:200px;padding:3px;"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" id="text-filter"> 过 滤 </button>
+                <button type="button" class="layui-btn" id="text-replace"> 替 换 </button>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">结果：</label>
+            <div class="layui-input-block" id="txt-result" style="padding-top:5px">
+            </div>
+        </div>
+    </form>
+    @if (hasImage) {
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend> 图片审核</legend>
+        </fieldset>
+        <form class="layui-form">
+            <div class="layui-form-item">
+                <label class="layui-form-label">本地图片：</label>
+                <div class="layui-input-block">
+                    <input type="text" id="image-path" autocomplete="off" class="layui-input" placeholder="【本地图片审核】需要输入此项">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block">
+                    <button type="button" class="layui-btn" id="image-local-filter"> 本地图片审核  </button>
+                    <button type="button" class="layui-btn" id="image-upload-filter"> 上传图片审核  </button>
+                    @if (hasBrowser) {
+
+
+                    }
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">结果：</label>
+                <div class="layui-input-block" id="image-result" style="padding-top:5px">
+                </div>
+            </div>
+        </form>
+    }
+
+</div>
+@section js{
+    <script>
+
+        layui.use(['element', 'form', 'layer', 'upload' ], function () {
+            var $ = layui.jquery, upload = layui.upload, layer = layui.layer;
+
+            upload.render({
+                elem: '#image-upload-filter'
+                , url: '/api/image-upload-filter'
+                , accept: 'images'
+                , exts: 'jpg|jpeg|png'
+                , done: function (data) {
+                    $("#image-result").text(JSON.stringify(data));
+                }
+            });
+
+            $("#image-local-filter").click(function () {
+                var path = $("#image-path").val();
+                $.post("/api/image-local-filter", { path: path }, function (data) {
+                    $("#image-result").text(JSON.stringify(data));
+                });
+            });
+
+            $("#text-filter").click(function () {
+                var type = $("#type").val();
+                var url = "/api/text-filter";
+                if (type == 1) {
+                    url = "/api/html-filter";
+                } else if (type == 2) {
+                    url = "/api/json-filter";
+                } else if (type == 3) {
+                    url = "/api/markdown-filter";
+                }
+                var txt = $("#txt").val();
+                $.post(url, { txt: txt }, function (data) {
+                    $("#txt-result").text(JSON.stringify(data));
+                });
+            })
+
+            $("#text-replace").click(function () {
+                var type = $("#type").val();
+                var url = "/api/text-replace";
+                if (type == 1) {
+                    url = "/api/html-replace";
+                } else if (type == 2) {
+                    url = "/api/json-replace";
+                } else if (type == 3) {
+                    url = "/api/markdown-replace";
+                }
+                var replaceChar = $("#replaceChar").val();
+                var txt = $("#txt").val();
+                var reviewReplace = $("#reviewReplace").prop("checked");
+                var contactReplace = $("#contactReplace").prop("checked");
+                $.post(url, { txt: txt, replaceChar: replaceChar, reviewReplace: reviewReplace,contactReplace:contactReplace }, function (data) {
+                    $("#txt-result").text(JSON.stringify(data));
+                });
+            })
+
+        });
+
+        var isRegister = '@(ViewData["isRegister"])';
+        var serviceEnd = new Date('@(ViewData["serviceEnd"])');
+    </script>
+    <script src="/_/js/register.alert.js"></script>
+}

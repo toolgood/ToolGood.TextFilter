@@ -1,0 +1,83 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    <style>
+        html, body { height: 100%; }
+        body { line-height: 1.5; background: #f2f2f2; }
+        .container-wrap { margin: 0px auto 0; min-height: 100%; box-sizing: border-box; }
+        .container { margin: 0 auto; }
+        .container .item { margin-bottom: 15px; background: #fff; padding-top: 20px; }
+        .container .item .item-box { padding: 0 35px 24px; font-size: 14px; }
+        .container .item h3 { line-height: 36px; font-size: 20px; }
+        .container .item h5 { line-height: 38px; color: #a5a5a5; }
+        .container .item p { line-height: 30px; padding-bottom: 5px; }
+        .container .item-btn { text-align: center; margin-top: 20px; }
+        .container .item .item-box h3 { margin-bottom: 10px; text-align: center }
+        .container .item .item-box p { color: #6a6a6a; margin-bottom: 10px; text-indent: 2em }
+    </style>
+}
+
+@section head{
+    <div style="background-color: #393D49;">
+        <div class="layui-container" style="padding: 0;">
+            <ul class="layui-nav" style="padding: 0;">
+                <li class="layui-nav-item"><a href="/">首页</a></li>
+                <li class="layui-nav-item"><a href="/keywordTypes">敏感词管理</a></li>
+                <li class="layui-nav-item"><a href="/about">产品信息</a></li>
+                <li class="layui-nav-item layui-this"><a href="/legal">许可协议</a></li>
+                <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
+            </ul>
+        </div>
+    </div>
+}
+<div class="container-wrap">
+    <div class="container container-message container-details container-about">
+        <div class="contar-wrap">
+            <div class="item">
+                <div class="item-box">
+                    <div class="site-content layui-text">
+                        <h3>许 可 协 议</h3>
+                        <blockquote class="layui-elem-quote">
+                            本《许可协议》是您（个人或单一法人团体）与温岭城东知君软件开发工作室(以下简称“知君工作室”)就《ToolGood内容审核系统》所合法成立的协议。
+                            在您阅读本许可协议后若不同意此声明中的任何条款，或对本声明存在质疑，请立刻停止使用我们的软件。
+                            若您已经开始或正在使用 《ToolGood内容审核系统》 软件，则表示您已阅读并同意接受本许可协议条款的约束。
+                        </blockquote>
+                        <ul>
+                            <li>
+                                1、您通过下载 《ToolGood内容审核系统》 开源软件并使用 《ToolGood内容审核系统》 软件提供的服务与功能即表示您已经同意与 知君工作室 立本协议。
+                                知君工作室 可随时执行全权决定更改“条款”。如“条款”有任何变更，知君工作室 官方网站上刊载公告作为通知。经修订的“条款”一经在官方网站上公布后，立即自动生效。
+                            </li>
+                            <li>2、本软件产品版权属于知君工作室所有，并受著作权法、国际版权公约以及其它知识产权法律及条约的保护，因此您不得复制本软件，并不得利用任何方法取得、使用本软件的程序代码、文字资料、图片等资料。</li>
+                            <li>3、本软件产品受著作权法及国际条约款和其它知识产权法及条约的保护。本“软件产品”只许可使用，而非出售。</li>
+                            <li>4、您需要购买一份注册码（一机一码绑定），服务期内软件免费更新，过期仍可使用，服务续费后可更新软件。</li>
+                            <li>
+                                5、您不得（并且亦不得允许或鼓励任何第三方）全部或部分复制、分发、编制衍生作品、公开展示或公开演示许可软件，或为任何第三方使用或向任何第三方提供许可软件，或代表任何第三方使用许可软件。
+                                除非且仅限在适用的法律或第三方许可证不允许此类限制的情况下，您不得（并且亦不得允许任何第三方）：
+                                (a) 对许可软件或与许可软件有关的任何其他应用程序、软件、文档或数据，或其中任何部分进行反向工程、反编译、反汇编或企图通过其他方式发现源代码、目标代码或底层结构、理念或算法；
+                                (b) 干扰或绕过许可软件的任何功能，包括但不限于任何旨在监控您遵守本协议情况的许可证密钥；
+                                (c) 出让、出售、出租、许可、再许可或以其他方式转让或企图转让许可软件的权利；
+                                (d) 以不符合本协议以及所有适用法律法规（包括但不限于任何适用的隐私、数据保护和知识产权法律）的方式使用任何许可软件；
+                                或者 (e) 篡改或删除许可软件上或其中出现的任何版权、商标、专利或其他专有权利通告或标签。
+                            </li>
+                            <li>
+                                6、知君工作室承诺，本软件产品没有包含任何恶意代码。在相关法律所允许的最大范围内，由于您使用了本软件产品而可能产生的一切损害：
+                                程序运行错误、可用性消失、利润损失、商业中断，或其它任何形式的间接、特别、意外或必然的破坏，或任何其他方的索赔，
+                                知君工作室不承担任何赔偿责任，即使知君工作室事先被告知该损害发生的可能性。
+                            </li>
+                            <li>7、因公司或个人传播或使用软件可能造成的任何法律和刑事事件 知君工作室 不负任何责任。</li>
+                            <li>8、若违反本协议的任一条款与条件，知君工作室可以随时终止许可。终止许可时，您必须立即销毁本软件产品及文档的所有拷贝。</li>
+                            <li>9、适用法律：《知识产权保护条例》、《版权、著作权法》、《专利法》等。</li>
+                        </ul>
+
+                        <br>
+                        <p style="text-align: right;margin-bottom:0;padding-bottom:0; ">—— &nbsp; 知君工作室</p>
+                        <p style="text-align: right">2021.3.21</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ToolGood 内容审核系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/_/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        html, body { height: 100%; }
+        body { line-height: 1.5; background: #f2f2f2; }
+    </style>
+    @RenderSection("css", required: false)
+</head>
+<body>
+    <header id="top">
+        @RenderSection("head", required: false)
+    </header>
+    <div class="layui-container" style="margin-top: 15px;   background: #fff;">
+        @RenderBody()
+    </div>
+    <footer style="padding-bottom:20px;margin-top:10px;">
+        <div class="layui-container" style="text-align:center">
+            <a href="http://www.toolgood.com" target="_blank">&copy; 2021  <b>ToolGood</b>内容审核系统(评估版)</a>
+            <span> | </span>
+            <span>温岭城东知君软件开发工作室</span>
+        </div>
+    </footer>
+    <script src="/_/js/jquery.min.js"></script>
+    <script src="/_/layui/layui.js"></script>
+    <script>layui.use(['element', 'util', 'layer'], function () { layui.util.fixbar({ bgcolor: '#393D49' }); });</script>
+    @RenderSection("js", required: false)
+</body>
+</html>

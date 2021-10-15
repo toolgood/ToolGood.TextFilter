@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30503.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolGood.TextFilter.App", "ToolGood.TextFilter.App\ToolGood.TextFilter.App.csproj", "{3BC5640E-087A-4913-ACDB-9722BAA8F113}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolGood.TextFilter.Website", "ToolGood.TextFilter.Website\ToolGood.TextFilter.Website.csproj", "{CC6E036C-D661-4080-96D4-D7A67D435DC0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		GRPC-Consul|Any CPU = GRPC-Consul|Any CPU
+		Image|Any CPU = Image|Any CPU
+		Image-GRPC-Consul|Any CPU = Image-GRPC-Consul|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.GRPC-Consul|Any CPU.ActiveCfg = Win|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.GRPC-Consul|Any CPU.Build.0 = Win|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Image|Any CPU.ActiveCfg = Win-Image|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Image|Any CPU.Build.0 = Win-Image|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Image-GRPC-Consul|Any CPU.ActiveCfg = Win|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Image-GRPC-Consul|Any CPU.Build.0 = Win|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BC5640E-087A-4913-ACDB-9722BAA8F113}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.GRPC-Consul|Any CPU.ActiveCfg = Win-GRPC-Consul|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.GRPC-Consul|Any CPU.Build.0 = Win-GRPC-Consul|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Image|Any CPU.ActiveCfg = Win-Image|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Image|Any CPU.Build.0 = Win-Image|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Image-GRPC-Consul|Any CPU.ActiveCfg = Release|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Image-GRPC-Consul|Any CPU.Build.0 = Release|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Release|Any CPU.ActiveCfg = Win|Any CPU
+		{CC6E036C-D661-4080-96D4-D7A67D435DC0}.Release|Any CPU.Build.0 = Win|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4526CCB4-BE56-4370-8A0F-DE7E6AB79FE5}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,90 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var hasGrpc = (bool)ViewData["hasGrpc"];
+}
+@section css{
+    <style>
+        .layui-form-label { width: 120px; }
+        .layui-input-block { margin-left: 150px; }
+    </style>
+}
+@section head{
+    <div style="background-color: #393D49;">
+        <div class="layui-container" style="padding: 0;">
+            <ul class="layui-nav" style="padding: 0;">
+                <li class="layui-nav-item"><a href="/">首页</a></li>
+                <li class="layui-nav-item"><a href="/keywordTypes">敏感词管理</a></li>
+                <li class="layui-nav-item layui-this"><a href="/about">产品信息</a></li>
+                <li class="layui-nav-item"><a href="/legal">许可协议</a></li>
+                <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
+            </ul>
+        </div>
+    </div>
+}
+<div style="padding-top:15px;padding-bottom:15px;">
+    <fieldset class="layui-elem-field layui-field-title site-title">
+        <legend> 产品信息</legend>
+    </fieldset>
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">软件名称：</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" value="ToolGood 内容审核系统" readonly="readonly">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">版本号：</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" value="@(ViewData["version"])" readonly="readonly">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">状态：</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" value="未注册" readonly="readonly">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">注册人：</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" value="@(ViewData["register"])" readonly="readonly">
+                </div>
+            </div>
+        </div>
+  
+    </form>
+
+
+
+</div>
+@section js{
+    <script src="/_/js/clipboard.min.js"></script>
+    <script>
+        layui.use(['element', 'form', 'layer'], function () {
+            var $ = layui.jquery;
+            var clipboard = new ClipboardJS('.btn');
+            clipboard.on('success', function (e) {
+                layui.layer.msg("复制成功!", { time: 1000 });
+                e.clearSelection();
+            });
+
+            $("#submit").click(function () {
+                var lic = $("#licenceTxt").val();
+                $.post("/api/sys-Update-Licence", { licence: lic }, function (data) {
+                    if (data.code == 0) {
+                        layui.layer.alert("【注册/更新】成功");
+                    } else {
+                        layui.layer.alert("【注册/更新】失败：" + data.message);
+                    }
+                });
+            })
+            
+        });
+
+
+    </script>
+}

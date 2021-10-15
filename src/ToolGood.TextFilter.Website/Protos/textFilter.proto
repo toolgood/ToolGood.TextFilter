@@ -1,0 +1,95 @@
+syntax = "proto3";
+
+option csharp_namespace = "ToolGood.TextFilter"; 
+
+package toolgood.textfilter.api.GrpcBase;
+
+// The greeting service definition.
+service TextFilterGrpc {
+  rpc TextFilter (TextFindAllGrpcRequest) returns (TextFindAllGrpcReply);
+  rpc JsonFilter (TextFindAllGrpcRequest) returns (TextFindAllGrpcReply);
+  rpc HtmlFilter (TextFindAllGrpcRequest) returns (TextFindAllGrpcReply);
+  rpc MarkdownFilter (TextFindAllGrpcRequest) returns (TextFindAllGrpcReply);
+
+  rpc TextReplace (TextReplaceGrpcRequest) returns (TextReplaceGrpcReply);
+  rpc JsonReplace (TextReplaceGrpcRequest) returns (TextReplaceGrpcReply);
+  rpc HtmlReplace (TextReplaceGrpcRequest) returns (TextReplaceGrpcReply);
+  rpc MarkdownReplace (TextReplaceGrpcRequest) returns (TextReplaceGrpcReply);
+
+  rpc TextFilterAsync (TextFindAllAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+  rpc JsonFilterAsync (TextFindAllAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+  rpc HtmlFilterAsync (TextFindAllAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+  rpc MarkdownFilterAsync (TextFindAllAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+
+  rpc TextReplaceAsync (TextReplaceAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+  rpc JsonReplaceAsync (TextReplaceAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+  rpc HtmlReplaceAsync (TextReplaceAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+  rpc MarkdownReplaceAsync (TextReplaceAsyncGrpcRequest) returns (TextFilterRequestIdGrpcReply);
+}
+message TextFindAllGrpcRequest {
+  string txt = 1;
+  bool skipBidi=2;
+  bool onlyPosition=3;
+}
+message TextFindAllAsyncGrpcRequest {
+  string txt = 1;
+  bool skipBidi=2;
+  bool onlyPosition=3;
+  string requestId = 4;
+  string url = 5;
+}
+message TextReplaceGrpcRequest {
+  string txt = 1;
+  bool skipBidi=2;
+  uint32 replaceChar = 3;
+  bool reviewReplace=4;
+  bool contactReplace=5;
+  bool onlyPosition=6;
+}
+message TextReplaceAsyncGrpcRequest {
+  string txt = 1;
+  bool skipBidi=2;
+  uint32 replaceChar = 3;
+  bool reviewReplace=4;
+  bool contactReplace=5;
+  bool onlyPosition=6;
+  string requestId = 7;
+  string url = 8;
+}
+message TextFilterRequestIdGrpcReply {
+  int32 code = 1;// 返回码：0) 成功，1) 失败
+  string message = 2;
+  string requestId = 3;
+}
+
+message TextFindAllGrpcReply {
+  int32 code = 1;// 返回码：0) 成功，1) 失败
+  string message = 2;
+  string requestId = 3;
+  string riskLevel = 4;  
+  string riskCode=5;
+  float sentimentScore=6;
+  repeated TextFilterDetailGrpcResult details = 7;  
+  repeated TextFilterContactGrpcResult contacts = 8;  
+}
+
+message TextReplaceGrpcReply{
+  int32 code = 1;// 返回码：0) 成功，1) 失败
+  string message = 2;
+  string requestId = 3;
+  string riskLevel = 4;  
+  string resultText = 5; 
+  repeated TextFilterDetailGrpcResult details = 6;  
+}
+message TextFilterDetailGrpcResult{
+    string riskLevel=1;
+    string riskCode=2;
+    string position=3;
+    string text=4;
+}
+message TextFilterContactGrpcResult{
+    string contactType=1;
+    string contactString=2;
+    string position=3;
+}
+

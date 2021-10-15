@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Configurations>Debug;Release;Win;Win-Async;Linux;Linux-Async</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>Win;browser;Build;Async</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Win'">
+    <DefineConstants>Win</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(Configuration)'=='Win-Async'">
+    <DefineConstants>Win;Async</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+ 
+  <PropertyGroup Condition="'$(Configuration)'=='Linux'">
+    <DefineConstants></DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Linux-Async'">
+    <DefineConstants>Async</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+ 
+
+
+
+
+  <ItemGroup Condition="$(DefineConstants.Contains('Win'))">
+    <PackageReference Include="System.Management" Version="5.0.0" />
+  </ItemGroup>
+
+ 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.9" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,201 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var hasImage = (bool)ViewData["hasImage"];
+    var hasBrowser = (bool)ViewData["hasBrowser"];
+    var hasGrpc = (bool)ViewData["hasGrpc"];
+}
+@section css{
+    <style>
+        .layui-form-label { width: 130px; }
+        .layui-input-block { margin-left: 170px; }
+        .data-header { margin-bottom: 0; line-height: 26px; padding: 0 5px; }
+        .data-header .search { }
+        .data-header .search .txtSearch, .data-header .search select { border: 1px solid #aaa; height: 30px; line-height: 30px; padding: 0 5px; font-size: 12px; }
+
+        .search-v2 { padding: 5px; font-size: 12px; display: inline-table; }
+        .search-v2 .filter { float: left; margin-right: 5px; height: 26px; line-height: 26px; /*padding-bottom: 5px;*/ }
+        .search-v2 .filter label { padding-right: 0; color: #403e3e; }
+        .search-v2 .text { height: 26px; border: 1px solid #e1e3e4; border-radius: 2px; padding: 0 5px; line-height: 26px; width: 120px; margin-left: 0; }
+        .search-v2 select { height: 26px; border: 1px solid #e1e3e4; border-radius: 2px; padding: 0 5px; line-height: 26px; margin-left: 6px; }
+        .search-v2 .text.laydate { width: 136px; }
+        .search-v2 .layui-btn-primary:hover { border-color: #AAA; }
+
+        body .layui-table tbody tr:hover, .layui-table-header, .layui-table-hover, .layui-table-patch, .layui-table-tool { background-color: #d1e7fb !important }
+        body .data-header { margin-bottom: 0; line-height: 26px; }
+        body .layui-btn-xs { height: 24px; line-height: 26px; }
+        body .layui-table, .layui-table-view { margin: 0; }
+        body div.layui-table-cell a { color: blue; }
+        body .layui-btn + .layui-btn { margin-left: 5px; }
+        body .search-v2 .text { height: 24px; line-height: 26px; margin-left: 0; width: 80px; }
+
+
+        .layui-table td, .layui-table th { padding: 3px; }
+        .layui-form-item .layui-form-checkbox[lay-skin=primary] { margin-top: 5px; margin-bottom: 5px; }
+        .layui-word-aux { margin-bottom: 0; padding-bottom: 0 !important; padding-top: 0 !important; }
+    </style>
+}
+@section head{
+    <div style="background-color: #393D49;">
+        <div class="layui-container" style="padding: 0;">
+            <ul class="layui-nav" style="padding: 0;">
+                <li class="layui-nav-item"><a href="/">首页</a></li>
+                <li class="layui-nav-item  layui-this"><a href="/keywordTypes">敏感词管理</a></li>
+                <li class="layui-nav-item"><a href="/about">产品信息</a></li>
+                <li class="layui-nav-item"><a href="/legal">许可协议</a></li>
+                <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
+            </ul>
+        </div>
+    </div>
+}
+<div style="overflow: hidden;">
+    <div class="layui-tab layui-tab-brief" lay-filter="tabBrief">
+        <ul class="layui-tab-title">
+            <li> 配置内置敏感词类型 </li>
+            <li class="layui-this"> 其它设置 </li>
+        </ul>
+    </div>
+    <div class="data-header">
+        <div class="search-v2">
+            <div class="filter">
+                <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" onclick="refreshCache()">&nbsp; 刷新缓存 &nbsp; </button>
+                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" onclick="InitData()">&nbsp; 重新加载数据 &nbsp; </button>
+                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" onclick="GC()">&nbsp; GC垃圾回收 &nbsp; </button>
+            </div>
+        </div>
+    </div>
+
+    <form class="layui-form" id="form">
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend> 自定义检测设置</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">自定义跳词：</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["Skipword"])" name="Skipword">
+                <div class="layui-form-mid layui-word-aux">
+                    注：修改后请刷新缓存
+                </div>
+            </div>
+        </div>
+        @if (hasImage) {
+            <div class="layui-form-item">
+                <label class="layui-form-label">图片临时保存地址：</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["ImageTempPath"])" name="ImageTempPath">
+                </div>
+            </div>
+        }
+
+        @if (hasGrpc) {
+            <fieldset class="layui-elem-field layui-field-title site-title">
+                <legend> 异步反馈</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label">文本检测异步地址：</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["TextFilterNoticeUrl"])" name="TextFilterNoticeUrl">
+                    <div class="layui-form-mid layui-word-aux">
+                        注：异步回调使用Post，Json格式。
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">文本替换异步地址：</label>
+                <div class="layui-input-block">
+                    <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["TextReplaceNoticeUrl"])" name="TextReplaceNoticeUrl">
+                    <div class="layui-form-mid layui-word-aux">
+                        注：异步回调使用Post，Json格式。
+                    </div>
+                </div>
+            </div>
+            @if (hasImage) {
+                <div class="layui-form-item">
+                    <label class="layui-form-label">图片检测异步地址：</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["ImageFilterNoticeUrl"])" name="ImageFilterNoticeUrl">
+                        <div class="layui-form-mid layui-word-aux">
+                            注：异步回调使用Post，Json格式。
+                        </div>
+                    </div>
+                </div>
+                @if (hasBrowser) {
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">图片分类异步地址：</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["ImageClassifyNoticeUrl"])" name="ImageClassifyNoticeUrl">
+                            <div class="layui-form-mid layui-word-aux">
+                                注：异步回调使用Post，Json格式。
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+
+        }
+
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn" id="submit"> 提 交 保 存 </button>
+            </div>
+        </div>
+    </form>
+
+
+
+</div>
+
+
+
+@section js{
+    <script src="~/_/js/jquery.serializeJson.js"></script>
+    <script>
+        layui.use(['form', 'table' ], function () {
+            var $ = jQuery = layui.jquery;
+            var element = layui.element;
+            element.on('tab(tabBrief)', function (data) {
+                if (data.index == 0) {
+                    location.href = "/keywordTypes";
+                } else if (data.index == 1) {
+                    location.href = "/sys";
+                }
+            });
+
+            $("#submit").click(function () {
+                var data = $("#form").serializeJson();
+                $.post("/api/sys-update", data, function () {
+                    layui.layer.msg("保存成功！");
+                })
+            })
+        });
+        function testUrl(url) {
+            return /^http(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+ %\$#_=]*)?$/.test(url);
+        }
+
+        function refreshCache() {
+            $.post("/api/sys-refresh", function (data) {
+                layui.layer.msg("缓存刷新成功!");
+            })
+        }
+        function InitData() {
+            $.post("/api/sys-init-Data", function (data) {
+                layui.layer.msg("重新加载数据成功!");
+            })
+        }
+        function GC() {
+            $.post("/api/sys-GC-Collect", function (data) {
+                layui.layer.msg("GC垃圾回收成功!");
+            })
+        }
+
+        function pageReload() {
+            location.reload();
+        }
+        var isRegister = '@(ViewData["isRegister"])';
+        var serviceEnd = new Date('@(ViewData["serviceEnd"])');
+    </script>
+    <script src="/_/js/register.alert.js"></script>
+}
+

@@ -1,0 +1,143 @@
+﻿@{
+    Layout = null;
+    var keyword = ViewData["keyword"] as ToolGood.TextFilter.Datas.DbKeywordType;
+    var pass = (int)ToolGood.TextFilter.IllegalWordsRiskLevel.Pass;
+    var review = (int)ToolGood.TextFilter.IllegalWordsRiskLevel.Review;
+    var reject = (int)ToolGood.TextFilter.IllegalWordsRiskLevel.Reject;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ToolGood 内容监控平台</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="/_/layui/css/layui.css" rel="stylesheet" />
+    <style>
+        .layui-form-label { width: 100px; }
+        .layui-input-block { margin-left: 130px; }
+        .layui-table td, .layui-table th { padding: 3px; }
+        .layui-form-item .layui-form-checkbox[lay-skin=primary] { margin-top: 5px; margin-bottom: 5px; }
+        .layui-word-aux { margin-bottom: 0; padding-bottom: 0 !important; padding-top: 0 !important; }
+    </style>
+</head>
+<body>
+    <form class="layui-form" id="form" style="padding-right:20px; padding-top:20px;">
+        <input type="hidden" name="typeId" value="@keyword.TypeId" />
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">敏感词类型：</label>
+                <div class="layui-input-inline" style="width:150px;">
+                    <input type="text" name="name" value="@(keyword.Name)" autocomplete="off" readonly class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label" style="width:50px;">CODE：</label>
+                <div class="layui-input-inline" style="width: 120px; ">
+                    <input type="text" value="@(keyword.Code)" autocomplete="off" readonly class="layui-input">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">指定日期：</label>
+            <div class="layui-input-block">
+                <div class="layui-input-block" style="margin:0;padding:0">
+                    <div class="layui-inline">
+                        <input type="checkbox" name="useTime" value="true" lay-skin="primary" title="启用" @(keyword.UseTime ? "checked" : "")>
+                    </div>
+                    <div class="layui-inline">
+                        开始日期
+                    </div>
+                    <div class="layui-inline">
+                        <input type="text" name="startTime" id="startTime" class="layui-input" value="@(keyword.StartTime?.ToString("MM-dd"))" style="width:70px;" autocomplete="off" />
+                    </div>
+                    <div class="layui-inline">
+                        结束日期
+                    </div>
+                    <div class="layui-inline">
+                        <input type="text" name="endTime" id="endTime" class="layui-input" value="@(keyword.EndTime?.ToString("MM-dd"))" style="width:70px;" autocomplete="off"  />
+                    </div>
+                </div>
+                <div class="layui-form-mid layui-word-aux" style="text-align:center">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型1 (触线)：</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="Level_1_UseType" lay-filter="radio" value="@(pass)" lay-skin="primary" title="PASS，直接通过" @(keyword.Level_1_UseType.Value == pass ? "checked" : "")>
+                <input type="checkbox" name="Level_1_UseType" lay-filter="radio" value="@(review)" lay-skin="primary" title="REVIEW，人工审核" @(keyword.Level_1_UseType.Value == review ? "checked" : "")>
+                <input type="checkbox" name="Level_1_UseType" lay-filter="radio" value="@(reject)" lay-skin="primary" title="REJECT，屏蔽删除" @(keyword.Level_1_UseType.Value == reject ? "checked" : "")>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型2 (危险)：</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="Level_2_UseType" lay-filter="radio" value="@(pass)" lay-skin="primary" title="PASS，直接通过" @(keyword.Level_2_UseType.Value == pass ? "checked" : "")>
+                <input type="checkbox" name="Level_2_UseType" lay-filter="radio" value="@(review)" lay-skin="primary" title="REVIEW，人工审核" @(keyword.Level_2_UseType.Value == review ? "checked" : "")>
+                <input type="checkbox" name="Level_2_UseType" lay-filter="radio" value="@(reject)" lay-skin="primary" title="REJECT，屏蔽删除" @(keyword.Level_2_UseType.Value == reject ? "checked" : "")>
+
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">类型3 (违规)：</label>
+            <div class="layui-input-block">
+                <input type="checkbox" name="Level_3_UseType" lay-filter="radio" value="@(pass)" lay-skin="primary" title="PASS，直接通过" @(keyword.Level_3_UseType.Value == pass ? "checked" : "")>
+                <input type="checkbox" name="Level_3_UseType" lay-filter="radio" value="@(review)" lay-skin="primary" title="REVIEW，人工审核" @(keyword.Level_3_UseType.Value == review ? "checked" : "")>
+                <input type="checkbox" name="Level_3_UseType" lay-filter="radio" value="@(reject)" lay-skin="primary" title="REJECT，屏蔽删除" @(keyword.Level_3_UseType.Value == reject ? "checked" : "")>
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item">
+            <div class="layui-input-block" style="text-align:center;margin:0;padding:0">
+                <button type="button" class="layui-btn" id="submit"> 提 交 </button>
+                <div class="layui-form-mid layui-word-aux" style="float: none;">
+                    注：保存后请刷新缓存
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <script src="/_/js/jquery.min.js"></script>
+    <script src="/_/layui/layui.js"></script>
+    <script src="/_/js/jquery.serializeJson.js"></script>
+    <script>
+        layui.use(["layer", "form", 'util', "element", "laydate"], function () {
+            var laydate = layui.laydate;
+            laydate.render({ elem: '#startTime', isInitValue: true, format: 'MM-dd' });
+            laydate.render({ elem: '#endTime', isInitValue: true, format: 'MM-dd' });
+
+            layui.form.on('checkbox(radio)', function (data) {
+                var name = $(data.elem).attr("name");
+                $("input:checkbox[name=" + name + "]").prop('checked', false);
+                $(data.elem).prop("checked", true);
+                layui.form.render('checkbox');
+            });
+
+        });
+        function closeWindow() {
+            var index = parent.layer.getFrameIndex(window.name);
+            parent.layer.close(index);
+        }
+        $(function () {
+            $("#submit").click(function () {
+                var data = $("#form").serializeJson();
+                var url = "/api/set-keywordtype";
+                $.post(url, data, function (res) {
+                    if (res.code == 0) {
+                        closeWindow();
+                        parent.location.reload();
+                    } else {
+                        layui.layer.alert(res.message);
+                    }
+                })
+            })
+        })
+    </script>
+</body>
+</html>

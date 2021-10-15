@@ -1,0 +1,108 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
+    <AssemblyName>ToolGood.TextFilter</AssemblyName>
+    <Configurations>Debug;Release;Win;Win-GRPC-Consul;Linux;Linux-GRPC-Consul</Configurations>
+    <UserSecretsId>48816290-be1c-44e6-b4ab-3884599b844c</UserSecretsId>
+
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+
+    <ServerGarbageCollection>false</ServerGarbageCollection>
+    <!--- ServerGarbageCollection ： 服务器垃圾收集 ：不会让内存无限增长 -->
+    <ConcurrentGarbageCollection>true</ConcurrentGarbageCollection>
+    <!--- ServerGarbageCollection ： 并发垃圾收集 ：不会让内存无限增长 -->
+    
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>Win;browser;Async;GRPC;Consul</DefineConstants>
+  </PropertyGroup>
+  
+  <PropertyGroup Condition="'$(Configuration)'=='Win'">
+    <DefineConstants>RELEASE;Win-app;Win</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Win-GRPC-Consul'">
+    <DefineConstants>RELEASE;Win-Async-app;Win;Async;GRPC;Consul</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Linux'">
+    <DefineConstants>RELEASE;Linux;Linux-app</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)'=='Linux-GRPC-Consul'">
+    <DefineConstants>RELEASE;Linux;Linux-Async-app;Async;GRPC;Consul</DefineConstants>
+    <Optimize>true</Optimize>
+  </PropertyGroup>
+
+
+  <ItemGroup Condition="$(DefineConstants.Contains('Win'))">
+    <PackageReference Include="System.Management" Version="5.0.0" />
+  </ItemGroup>
+  
+  <ItemGroup Condition="$(DefineConstants.Contains('Async'))">
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('GRPC'))">
+    <PackageReference Include="Grpc.AspNetCore" Version="2.39.0" />
+    <Protobuf Include="Protos\textFilter.proto" GrpcServices="Server" />
+    <Protobuf Include="Protos\HealthCheck.proto" GrpcServices="Server" />
+  </ItemGroup>
+
+
+
+  <ItemGroup Condition="$(DefineConstants.Contains('Win-app'))">
+    <Reference Include="ToolGood.TextFilter.App">
+      <HintPath>..\libs\Win\ToolGood.TextFilter.App.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('Win-Async-app'))">
+    <Reference Include="ToolGood.TextFilter.App">
+      <HintPath>..\libs\Win-Async\ToolGood.TextFilter.App.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('Linux-app'))">
+    <Reference Include="ToolGood.TextFilter.App">
+      <HintPath>..\libs\Linux\ToolGood.TextFilter.App.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('Linux-Async-app'))">
+    <Reference Include="ToolGood.TextFilter.App">
+      <HintPath>..\libs\Linux-Async\ToolGood.TextFilter.App.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup Condition="$(DefineConstants.Contains('Consul'))">
+    <PackageReference Include="NConsul" Version="0.8.1" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="Protos\HealthCheck.proto" />
+    <None Remove="Protos\textFilter.proto" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <_WebToolingArtifacts Remove="Properties\PublishProfiles\Linux.pubxml" />
+    <_WebToolingArtifacts Remove="Properties\PublishProfiles\Win.pubxml" />
+  </ItemGroup>
+
+  
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.9" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="5.0.9" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.9" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+  </ItemGroup>
+
+  
+  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <ProjectReference Include="..\ToolGood.TextFilter.App\ToolGood.TextFilter.App.csproj" />
+  </ItemGroup>
+
+</Project>

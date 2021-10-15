@@ -1,0 +1,174 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    //var pass = (int)ToolGood.TextFilter.IllegalWordsRiskLevel.Pass;
+    var review = (int)ToolGood.TextFilter.IllegalWordsRiskLevel.Review;
+    var reject = (int)ToolGood.TextFilter.IllegalWordsRiskLevel.Reject;
+}
+@section css{
+    <style>
+        .data-header { margin-bottom: 0; line-height: 26px; padding: 0 5px; }
+        .data-header .search { }
+        .data-header .search .txtSearch, .data-header .search select { border: 1px solid #aaa; height: 30px; line-height: 30px; padding: 0 5px; font-size: 12px; }
+
+        .search-v2 { padding: 5px; font-size: 12px; display: inline-table; }
+        .search-v2 .filter { float: left; margin-right: 5px; height: 26px; line-height: 26px; /*padding-bottom: 5px;*/ }
+        .search-v2 .filter label { padding-right: 0; color: #403e3e; }
+        .search-v2 .text { height: 26px; border: 1px solid #e1e3e4; border-radius: 2px; padding: 0 5px; line-height: 26px; width: 120px; margin-left: 0; }
+        .search-v2 select { height: 26px; border: 1px solid #e1e3e4; border-radius: 2px; padding: 0 5px; line-height: 26px; margin-left: 6px; }
+        .search-v2 .text.laydate { width: 136px; }
+        .search-v2 .layui-btn-primary:hover { border-color: #AAA; }
+
+        body .layui-table tbody tr:hover, .layui-table-header, .layui-table-hover, .layui-table-patch, .layui-table-tool { background-color: #d1e7fb !important }
+        body .data-header { margin-bottom: 0; line-height: 26px; }
+        body .layui-btn-xs { height: 24px; line-height: 26px; }
+        body .layui-table, .layui-table-view { margin: 0; }
+        body div.layui-table-cell a { color: blue; }
+        body .layui-btn + .layui-btn { margin-left: 5px; }
+        body .search-v2 .text { height: 24px; line-height: 26px; margin-left: 0; width: 80px; }
+    </style>
+    <link href="/_/layui/css/treetable.css" rel="stylesheet" />
+}
+@section head{
+    <div style="background-color: #393D49;">
+        <div class="layui-container" style="padding: 0;">
+            <ul class="layui-nav" style="padding: 0;">
+                <li class="layui-nav-item"><a href="/">首页</a></li>
+                <li class="layui-nav-item layui-this"><a href="/keywordTypes">敏感词管理</a></li>
+                <li class="layui-nav-item"><a href="/about">产品信息</a></li>
+                <li class="layui-nav-item"><a href="/legal">许可协议</a></li>
+                <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
+            </ul>
+        </div>
+    </div>
+}
+<div style="overflow: hidden;">
+    <div class="layui-tab layui-tab-brief" lay-filter="tabBrief">
+        <ul class="layui-tab-title">
+            <li class="layui-this">配置内置敏感词类型</li>
+            <li>其它设置</li>
+        </ul>
+    </div>
+</div>
+<div class="data-header">
+    <div class="search-v2">
+        <form>
+            <div class="filter">
+                <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" onclick="refreshCache()">&nbsp; 刷新缓存 &nbsp; </button>
+                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" onclick="InitData()">&nbsp; 重新加载数据 &nbsp; </button>
+                <button type="button" class="layui-btn layui-btn-xs layui-btn-primary" onclick="GC()">&nbsp; GC垃圾回收 &nbsp; </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="data-content" style="margin-bottom:10px;">
+    <table class="layui-hide" id="dataList" lay-filter="dataList"></table>
+    <div style="height:15px;"></div>
+</div>
+<script type="text/template" id="bar">
+    <a href="/KeywordTypeEdit?id={{ d.typeId }}&w=700&h=500" edit class="openwin" title="编辑类型"> 编辑</a>
+</script>
+
+@section js{
+    <script src="/_/js/jquery.layer.js"></script>
+    <script>
+        function getType(type) {
+            if ( type == @(reject)) {
+                return "<span style='color: red'>REJECT，屏蔽删除</span>";
+            } else if ( type == @(review)) {
+                return "<span style='color:indianred'>REVIEW，人工审核</span>";
+            }
+            return "PASS，直接通过";
+        }
+
+        layui.use(['form', 'treetable', 'cookie'], function () {
+            var $ = jQuery = layui.jquery;
+            var element = layui.element;
+            element.on('tab(tabBrief)', function (data) {
+                if (data.index == 0) {
+                    location.href = "/keywordTypes";
+                } else if (data.index == 1) {
+                    location.href = "/sys";
+                }
+            });
+
+
+            var getListUrl = '/api/get-keywordtype-list';
+            var cols = [];
+            cols.push({ field: 'id', title: '序号', width: "60", });
+            cols.push({ field: 'name', title: '名称', width: "270", });
+            cols.push({ field: 'code', title: 'CODE', width: "120", });
+
+            cols.push({ field: 'level_1_UseType', title: '内置类型1 (触线)', width: "145", templet: function (d) { return getType(d.level_1_UseType);} });
+            cols.push({ field: 'level_2_UseType', title: '内置类型2 (危险)', width: "145", templet: function (d) { return getType(d.level_2_UseType); } });
+            cols.push({ field: 'level_3_UseType', title: '内置类型3 (违规)', width: "145", templet: function (d) { return getType(d.level_3_UseType); } });
+            cols.push({
+                field: 'useTime', title: '指定日期', width: "180", templet: function (d) {
+                    if (d.useTime == false) { return "未启用"; }
+                    var result = "";
+                    if (d.startTime.length > 0) {
+                        result += "开始：<span style='font-weight:bold'>" + d.startTime + "</span>";
+                        if (d.endTime.length > 0) {
+                            result += " 结束：<span style='font-weight:bold'>" + d.endTime +"</span>";
+                        }
+                    } else if (d.endTime.length > 0) {
+                        result = "结束：<span style='font-weight:bold'>" + d.endTime + "</span>";
+                    }
+                    return result;
+                }
+            });
+
+
+            cols.push({ field: 'right', title: '操作', width: "60", align: 'center', fixed: 'right', toolbar: '#bar' });
+
+            var tableOptions = {
+                useRsa: true,
+                url: getListUrl,
+                treeColIndex: 1,
+                treeSpid: "0",
+                treeIdName: 'typeId',
+                treePidName: 'parentId',
+                elem: '#dataList',
+                size: 'sm',
+                even: true,
+                method: 'POST',
+                page: false,
+                cols: [cols],
+                done: function () { layer.closeAll('loading'); },
+                text: { none: '<span style="color:red;">暂无记录</span>' }
+            };
+            var layer = layui.layer, table = layui.treetable;
+            layer.load(2);
+            table.render(tableOptions);
+
+            table.on('rowDouble(dataList)', function (obj) {
+                var tr = obj.tr[0];
+                $(tr).find("a[edit]").trigger("click");
+            });
+        });
+
+
+        function refreshCache() {
+            $.post("/api/sys-refresh", function (data) {
+                layui.layer.msg("缓存刷新成功!");
+            })
+        }
+        function InitData() {
+            $.post("/api/sys-init-Data", function (data) {
+                layui.layer.msg("重新加载数据成功!");
+            })
+        }
+        function GC() {
+            $.post("/api/sys-GC-Collect", function (data) {
+                layui.layer.msg("GC垃圾回收成功!");
+            })
+        }
+        function pageReload() {
+            location.reload();
+        }
+        var isRegister = '@(ViewData["isRegister"])';
+        var serviceEnd = new Date('@(ViewData["serviceEnd"])');
+    </script>
+    <script src="/_/js/register.alert.js"></script>
+}
