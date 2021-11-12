@@ -1,9 +1,6 @@
 ﻿
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var hasImage = (bool)ViewData["hasImage"];
-    var hasBrowser = (bool)ViewData["hasBrowser"];
-    var hasGrpc = (bool)ViewData["hasGrpc"];
 }
 @section css{
     <style>
@@ -41,7 +38,6 @@
             <ul class="layui-nav" style="padding: 0;">
                 <li class="layui-nav-item"><a href="/">首页</a></li>
                 <li class="layui-nav-item  layui-this"><a href="/keywordTypes">敏感词管理</a></li>
-                <li class="layui-nav-item"><a href="/about">产品信息</a></li>
                 <li class="layui-nav-item"><a href="/legal">许可协议</a></li>
                 <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
             </ul>
@@ -78,61 +74,30 @@
                 </div>
             </div>
         </div>
-        @if (hasImage) {
-            <div class="layui-form-item">
-                <label class="layui-form-label">图片临时保存地址：</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["ImageTempPath"])" name="ImageTempPath">
-                </div>
-            </div>
-        }
 
-        @if (hasGrpc) {
-            <fieldset class="layui-elem-field layui-field-title site-title">
-                <legend> 异步反馈</legend>
-            </fieldset>
-            <div class="layui-form-item">
-                <label class="layui-form-label">文本检测异步地址：</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["TextFilterNoticeUrl"])" name="TextFilterNoticeUrl">
-                    <div class="layui-form-mid layui-word-aux">
-                        注：异步回调使用Post，Json格式。
-                    </div>
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">文本替换异步地址：</label>
-                <div class="layui-input-block">
-                    <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["TextReplaceNoticeUrl"])" name="TextReplaceNoticeUrl">
-                    <div class="layui-form-mid layui-word-aux">
-                        注：异步回调使用Post，Json格式。
-                    </div>
-                </div>
-            </div>
-            @if (hasImage) {
-                <div class="layui-form-item">
-                    <label class="layui-form-label">图片检测异步地址：</label>
-                    <div class="layui-input-block">
-                        <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["ImageFilterNoticeUrl"])" name="ImageFilterNoticeUrl">
-                        <div class="layui-form-mid layui-word-aux">
-                            注：异步回调使用Post，Json格式。
-                        </div>
-                    </div>
-                </div>
-                @if (hasBrowser) {
-                    <div class="layui-form-item">
-                        <label class="layui-form-label">图片分类异步地址：</label>
-                        <div class="layui-input-block">
-                            <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["ImageClassifyNoticeUrl"])" name="ImageClassifyNoticeUrl">
-                            <div class="layui-form-mid layui-word-aux">
-                                注：异步回调使用Post，Json格式。
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
 
-        }
+        <fieldset class="layui-elem-field layui-field-title site-title">
+            <legend> 异步反馈</legend>
+        </fieldset>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文本检测异步地址：</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["TextFilterNoticeUrl"])" name="TextFilterNoticeUrl">
+                <div class="layui-form-mid layui-word-aux">
+                    注：异步回调使用Post，Json格式。
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">文本替换异步地址：</label>
+            <div class="layui-input-block">
+                <input type="text" class="layui-input" style="display: inline-block;" value="@(ViewData["TextReplaceNoticeUrl"])" name="TextReplaceNoticeUrl">
+                <div class="layui-form-mid layui-word-aux">
+                    注：异步回调使用Post，Json格式。
+                </div>
+            </div>
+        </div>
+
 
 
 
@@ -152,7 +117,7 @@
 @section js{
     <script src="~/_/js/jquery.serializeJson.js"></script>
     <script>
-        layui.use(['form', 'table' ], function () {
+        layui.use(['form', 'table'], function () {
             var $ = jQuery = layui.jquery;
             var element = layui.element;
             element.on('tab(tabBrief)', function (data) {
@@ -193,9 +158,6 @@
         function pageReload() {
             location.reload();
         }
-        var isRegister = '@(ViewData["isRegister"])';
-        var serviceEnd = new Date('@(ViewData["serviceEnd"])');
     </script>
-    <script src="/_/js/register.alert.js"></script>
 }
 

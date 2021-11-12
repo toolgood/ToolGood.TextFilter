@@ -2,7 +2,6 @@
 /* GPLv3 License - http://www.gnu.org/licenses/gpl-3.0.html   */
 using System.Runtime.CompilerServices;
 using ToolGood.TextFilter.App.Datas.TextFilters;
-using ToolGood.TextFilter.Datas;
 
 namespace ToolGood.TextFilter
 {
@@ -15,16 +14,6 @@ namespace ToolGood.TextFilter
             Count = keyInfo.Count;
             EmotionalColor = keyInfo.EmotionalColor;
             IsFenci = true;
-        }
-        internal TempWordsResultItem(int start, int end, DbKeyword keyword)
-        {
-            End = end;
-            Start = start;
-            DiyIndex = keyword.Id;
-            RiskLevel = (IllegalWordsRiskLevel)keyword.Type;
-            Count = 1;
-            MatchType = IllegalWordsMatchType.PartMatch;
-            TypeId = -1;
         }
 
         internal TempWordsResultItem(int start, int end, KeywordInfo keyInfo)

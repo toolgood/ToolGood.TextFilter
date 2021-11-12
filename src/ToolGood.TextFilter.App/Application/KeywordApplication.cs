@@ -9,62 +9,6 @@ namespace ToolGood.TextFilter.Application
 {
     public static class KeywordApplication
     {
-        #region Keyword
-        public static List<DbKeyword> GetKeywordList(ref int total, int type = 0, string keyword = null, int page = 1, int pageSize = 20)
-        {
-            if (page < 1) { page = 1; }
-            if (pageSize < 1) { pageSize = 20; }
-
-            using (var helper = ConfigUtil.GetSqlHelper()) {
-                var pg = helper.Where<DbKeyword>(q => q.IsDelete == false)
-                        .IfTrue(type >= 0).Where(q => q.Type == type)
-                        .IfSet(keyword).Where(q => q.Text.Contains(keyword))
-                        .OrderBy(" id desc ")
-                        .Page(page, pageSize);
-                total = pg.TotalItems;
-                return pg.Items;
-            }
-        }
-        public static DbKeyword GetKeyword(int id)
-        {
-            using (var helper = ConfigUtil.GetSqlHelper()) {
-                return helper.FirstOrDefault<DbKeyword>("select * from Keyword where Id=@0 and IsDelete=0", id);
-            }
-        }
-
-        public static void AddKeyword(string keyword, byte type, string commemt)
-        {
-            lock (MemoryCache.lockObj) {
-                using (var helper = ConfigUtil.GetSqlHelper()) {
-                    helper.Insert(new DbKeyword() {
-                        AddingTime = DateTime.Now,
-                        Text = keyword,
-                        Type = type,
-                        Comment = commemt,
-                    });
-                }
-            }
-        }
-        public static void SetKeyword(int id, string keyword, byte type, string commemt)
-        {
-            lock (MemoryCache.lockObj) {
-                using (var helper = ConfigUtil.GetSqlHelper()) {
-                    helper.Update<DbKeyword>("update Keyword set Text=@1,Type=@2,ModifyTime=@3,Comment=@4 where Id=@0", id, keyword, type, DateTime.Now, commemt);
-                }
-            }
-        }
-
-        public static void DeleteKeyword(int id)
-        {
-            lock (MemoryCache.lockObj) {
-                using (var helper = ConfigUtil.GetSqlHelper()) {
-                    helper.Update<DbKeyword>("update Keyword set IsDelete=1,ModifyTime=@1 where Id=@0", id, DateTime.Now);
-                }
-            }
-        }
-
-        #endregion
-
         #region KeywordType
         public static List<DbKeywordType> GetKeywordTypeList()
         {

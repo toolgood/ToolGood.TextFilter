@@ -17,29 +17,11 @@ namespace ToolGood.TextFilter.Commons
         /// </summary>
         public string TextReplaceNoticeUrl { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ImageFilterNoticeUrl { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ImageClassifyNoticeUrl { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string ImageTempPath { get; set; }
-
 
         private void Setting_Dispose()
         {
             TextFilterNoticeUrl = null;
             TextReplaceNoticeUrl = null;
-            ImageFilterNoticeUrl = null;
-            ImageClassifyNoticeUrl = null;
-            ImageTempPath = null;
         }
 
         private void LoadSettingData()
@@ -49,15 +31,9 @@ namespace ToolGood.TextFilter.Commons
                     var textFilterNoticeUrl = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='TextFilterNoticeUrl'");
                     var textReplaceNoticeUrl = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='TextReplaceNoticeUrl'");
 
-                    var imageTempPathSetting = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='ImageTempPath'");
-                    var imageFilterNoticeUrlSetting = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='ImageFilterNoticeUrl'");
-                    var imageClassifyNoticeUrlSetting = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='ImageClassifyNoticeUrl'");
 
                     TextFilterNoticeUrl = textFilterNoticeUrl?.Value ?? "";
                     TextReplaceNoticeUrl = textReplaceNoticeUrl?.Value ?? "";
-                    ImageTempPath = imageTempPathSetting?.Value ?? "";
-                    ImageFilterNoticeUrl = imageFilterNoticeUrlSetting?.Value ?? "";
-                    ImageClassifyNoticeUrl = imageClassifyNoticeUrlSetting?.Value ?? "";
                 }
             } catch (Exception) { }
         }
@@ -76,17 +52,10 @@ namespace ToolGood.TextFilter.Commons
                     var textFilterNoticeUrl = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='TextFilterNoticeUrl'");
                     var textReplaceNoticeUrl = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='TextReplaceNoticeUrl'");
 
-                    var imageTempPathSetting = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='ImageTempPath'");
-                    var imageFilterNoticeUrlSetting = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='ImageFilterNoticeUrl'");
-                    var imageClassifyNoticeUrlSetting = helper.FirstOrDefault<DbSetting>("select * from Setting where Key='ImageClassifyNoticeUrl'");
-
                     KeywordTypes = keywordTypes;
 
                     TextFilterNoticeUrl = textFilterNoticeUrl?.Value ?? "";
                     TextReplaceNoticeUrl = textReplaceNoticeUrl?.Value ?? "";
-                    ImageTempPath = imageTempPathSetting?.Value ?? "";
-                    ImageFilterNoticeUrl = imageFilterNoticeUrlSetting?.Value ?? "";
-                    ImageClassifyNoticeUrl = imageClassifyNoticeUrlSetting?.Value ?? "";
                 }
             } catch (Exception) { }
         }

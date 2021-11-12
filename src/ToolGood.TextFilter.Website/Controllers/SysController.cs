@@ -89,21 +89,6 @@ namespace ToolGood.TextFilter.Controllers
         }
 
 
-        [Route("/api/sys-info")]
-        public IActionResult Info()
-        {
-            Dictionary<string, string> dict = new Dictionary<string, string>();
-            dict["name"] = "ToolGood 内容审核平台";
-            dict["version"] = SysApplication.GetVersion(); // 版本号
-            dict["machineCode"] = SysApplication.GetMachineCode(); // 机器码
-            dict["isRegister"] = "未注册"; // 是否注册
-            dict["register"] = SysApplication.GetRegister(); // 注册人
-            dict["serviceStart"] = ""; // 服务开始日期
-            dict["serviceEnd"] = ""; // 服务结束日期
-            dict["licenceTxt"] = "";
-            return new JsonResult(dict);
-        }
-
 
         [Route("/api/sys-init-Data")]
         public IActionResult InitData()

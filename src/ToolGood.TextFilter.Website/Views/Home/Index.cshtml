@@ -1,8 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var hasImage = (bool)ViewData["hasImage"];
-    var hasBrowser = (bool)ViewData["hasBrowser"];
-    var hasGrpc = (bool)ViewData["hasGrpc"];
 }
 @section head{
     <div style="background-color: #393D49;">
@@ -10,7 +7,6 @@
             <ul class="layui-nav" style="padding: 0;">
                 <li class="layui-nav-item layui-this"><a href="/">首页</a></li>
                 <li class="layui-nav-item"><a href="/keywordTypes">敏感词管理</a></li>
-                <li class="layui-nav-item"><a href="/about">产品信息</a></li>
                 <li class="layui-nav-item"><a href="/legal">许可协议</a></li>
                 <li class="layui-nav-item"><a href="http://www.toolgood.com/faq" target="_blank">技术文档</a></li>
             </ul>
@@ -68,35 +64,6 @@
             </div>
         </div>
     </form>
-    @if (hasImage) {
-        <fieldset class="layui-elem-field layui-field-title site-title">
-            <legend> 图片审核</legend>
-        </fieldset>
-        <form class="layui-form">
-            <div class="layui-form-item">
-                <label class="layui-form-label">本地图片：</label>
-                <div class="layui-input-block">
-                    <input type="text" id="image-path" autocomplete="off" class="layui-input" placeholder="【本地图片审核】需要输入此项">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label"></label>
-                <div class="layui-input-block">
-                    <button type="button" class="layui-btn" id="image-local-filter"> 本地图片审核  </button>
-                    <button type="button" class="layui-btn" id="image-upload-filter"> 上传图片审核  </button>
-                    @if (hasBrowser) {
-
-
-                    }
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">结果：</label>
-                <div class="layui-input-block" id="image-result" style="padding-top:5px">
-                </div>
-            </div>
-        </form>
-    }
 
 </div>
 @section js{
@@ -159,8 +126,5 @@
 
         });
 
-        var isRegister = '@(ViewData["isRegister"])';
-        var serviceEnd = new Date('@(ViewData["serviceEnd"])');
     </script>
-    <script src="/_/js/register.alert.js"></script>
 }

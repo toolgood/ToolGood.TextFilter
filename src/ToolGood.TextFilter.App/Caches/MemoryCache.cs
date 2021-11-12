@@ -60,7 +60,6 @@ namespace ToolGood.TextFilter.Commons
 
         public void Dispose()
         {
-            Licence_Dispose();
             TextFilterData_Dispose();
             Setting_Dispose();
 

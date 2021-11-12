@@ -22,7 +22,6 @@ namespace ToolGood.TextFilter.Commons
 #if !Win
                 executeLinuxCmd("chmod", "777 " + path);
 #endif
-                helper._TableHelper.CreateTable(typeof(DbKeyword));
                 helper._TableHelper.CreateTable(typeof(DbKeywordType));
                 helper._TableHelper.CreateTable(typeof(DbSetting));
 
@@ -31,10 +30,6 @@ namespace ToolGood.TextFilter.Commons
                 helper.Insert(new DbSetting() { Key = "skipword", Value = skipword, Comment = "自定义敏感词的跳词", ModifyTime = DateTime.Now, });
                 helper.Insert(new DbSetting() { Key = "TextFindAllNoticeUrl", Value = "", Comment = "查询操作-异步通知网址", ModifyTime = DateTime.Now, });
                 helper.Insert(new DbSetting() { Key = "TextReplaceNoticeUrl", Value = "", Comment = "替换操作-异步通知网址", ModifyTime = DateTime.Now, });
-
-                helper.Insert(new DbSetting() { Key = "ImageTempPath", Value = "temp/", Comment = "图片临时路径", ModifyTime = DateTime.Now, });
-                helper.Insert(new DbSetting() { Key = "ImageFilterNoticeUrl", Value = "", Comment = "图片检测-异步通知网址", ModifyTime = DateTime.Now, });
-                helper.Insert(new DbSetting() { Key = "ImageClassifyNoticeUrl", Value = "", Comment = "图片分类-异步通知网址", ModifyTime = DateTime.Now, });
 
 
                 helper.Dispose();
