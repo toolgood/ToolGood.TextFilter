@@ -96,7 +96,6 @@ namespace ToolGood.TextFilter.Website.Commons
                     result.Text = request.Txt.AsSpan().Slice(resultItem.Start, resultItem.End + 1 - resultItem.Start).ToString();
                 }
 
-                //result.Words = resultItem.Keyword;
                 if (postions.Add(result.Position)) {
                     results.Add(result);
                 }
@@ -182,7 +181,6 @@ namespace ToolGood.TextFilter.Website.Commons
             } else {
                 result.RiskLevel = "REVIEW";
                 HashSet<string> postions = new HashSet<string>();
-                //result.Details = new List<TextFilterDetailResult>();
                 GetTextFilterDetailResult(result.Details, temp.ReviewSingleItems, postions, IllegalWordsRiskLevel.Review, request);
                 GetTextFilterDetailResult(result.Details, temp.ReviewMultiItems, postions, IllegalWordsRiskLevel.Review, request);
                 postions = null;
@@ -226,7 +224,6 @@ namespace ToolGood.TextFilter.Website.Commons
                 if (request.OnlyPosition == false) {
                     result.Text = request.Txt.AsSpan().Slice(resultItem.Start, resultItem.End + 1 - resultItem.Start).ToString();
                 }
-                //result.Words = resultItem.Keyword;
                 if (postions.Add(result.Position)) {
                     results.Add(result);
                 }
@@ -263,15 +260,7 @@ namespace ToolGood.TextFilter.Website.Commons
                 result.Position = textRange.ToString();
                 textRange = null;
 
-                //TextRange textRange = new TextRange();
-                //for (int i = 0; i < resultItem.Items.Length; i++) {
-                //    var t = resultItem.Items[i];
-                //    textRange.Add(t.Start, t.End);
-                //}
-                //result.Position = textRange.ToString();
-                //textRange = null;
-
-                //result.Words = resultItem.Keyword;
+  
                 if (postions.Add(result.Position)) {
                     results.Add(result);
                 }

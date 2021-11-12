@@ -26,12 +26,6 @@ namespace ToolGood.TextFilter.Website.Commons
             _asyncFilterUtil.httpClientFactory = serviceProvider.GetService<IHttpClientFactory>();
             FilterQueueApplication.SetFindAllAction(_asyncFilterUtil.TextFindAllNotice);
             FilterQueueApplication.SetReplaceAction(_asyncFilterUtil.TextReplaceNotice);
-#if image
-            FilterQueueApplication.SetImageFilterAction(_asyncFilterUtil.ImageFilterNotice);
-#if browser
-            FilterQueueApplication.SetImageClassifyAction(_asyncFilterUtil.ImageClassifyNotice);
-#endif
-#endif
 #endif
 
         }
@@ -64,38 +58,6 @@ namespace ToolGood.TextFilter.Website.Commons
             await PostContent(url, json);
         }
 
-#if image
-        private async void ImageFilterNotice(string requestId, string url, ImageFilterSearchResult res)
-        {
-            ImageFilterResult result = new ImageFilterResult();
-            result.Message = "SUCCESS";
-            result.RequestId = requestId;
-            result.UnSafe = res.UnSafe;
-            var json = JsonConvert.SerializeObject(result);
-            result = null;
-
-
-            await PostContent(url, json);
-        }
-#if browser
-        private async void ImageClassifyNotice(string requestId, string url, ImageClassifySearchResult res)
-        {
-            ImageClassifyResult result = new ImageClassifyResult();
-            result.Message = "SUCCESS";
-            result.RequestId = requestId;
-            result.Porn = res.Porn;
-            result.Bloody = res.Bloody;
-            result.Hentai = res.Hentai;
-            result.Lure = res.Lure;
-            result.Sexy = res.Sexy;
-            result.Normal = res.Normal;
-            var json = JsonConvert.SerializeObject(result);
-            result = null;
-
-            await PostContent(url, json);
-        }
-#endif
-#endif
 
         private async Task PostContent(string url, string json)
         {
