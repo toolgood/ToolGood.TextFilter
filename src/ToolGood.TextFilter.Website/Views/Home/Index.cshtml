@@ -72,23 +72,6 @@
         layui.use(['element', 'form', 'layer', 'upload' ], function () {
             var $ = layui.jquery, upload = layui.upload, layer = layui.layer;
 
-            upload.render({
-                elem: '#image-upload-filter'
-                , url: '/api/image-upload-filter'
-                , accept: 'images'
-                , exts: 'jpg|jpeg|png'
-                , done: function (data) {
-                    $("#image-result").text(JSON.stringify(data));
-                }
-            });
-
-            $("#image-local-filter").click(function () {
-                var path = $("#image-path").val();
-                $.post("/api/image-local-filter", { path: path }, function (data) {
-                    $("#image-result").text(JSON.stringify(data));
-                });
-            });
-
             $("#text-filter").click(function () {
                 var type = $("#type").val();
                 var url = "/api/text-filter";
