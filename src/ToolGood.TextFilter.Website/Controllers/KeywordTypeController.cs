@@ -20,11 +20,6 @@ namespace ToolGood.TextFilter.Controllers
             KeywordtypeListResult result = new KeywordtypeListResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -61,11 +56,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";

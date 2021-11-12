@@ -68,15 +68,6 @@ namespace ToolGood.TextFilter
                         MaxCount[i + 1] = MaxCount[i] + 1;
                     }
 
-
-                    //if (nextWords == null) {
-                    //if (i < _end && MinWords[i + 1].IsSet == false) {
-                    //        MinLength[i + 1] = minLength;
-                    //        MaxCount[i + 1] = MaxCount[i] + 1;
-                    //    }
-                    //} else {
-
-                    //}
                 }
             }
             _MinLength = null;

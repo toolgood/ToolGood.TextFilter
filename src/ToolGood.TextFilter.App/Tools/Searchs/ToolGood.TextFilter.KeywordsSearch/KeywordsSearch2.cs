@@ -22,7 +22,7 @@ namespace ToolGood.TextFilter
         private ushort _firstMaxChar;
         private ushort _azNumMinChar;
         private ushort _azNumMaxChar;
-        private ushort[] _dict; // 0 没有该值 1) 跳词, 2+)转成对应key
+        private ushort[] _dict; 
 
         private ushort[] _key;
         private Int32[] _next;
@@ -57,7 +57,7 @@ namespace ToolGood.TextFilter
                     var t1 = _ptext[i];
 
                     var t = _pdict[t1];
-                    if (t == 1) { continue; }//跳词
+                    if (t == 1) { continue; }
                     if (t <= _firstMaxChar) { p = t; continue; }
 
                     var next = _pnext[p] + t;
@@ -118,7 +118,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckNextChar(char* _ptext, int length, ushort t, int i, ushort* _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == length) { return true; }
 
             var tt = _pdict[_ptext[i + 1]];
@@ -129,7 +128,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckPreChar(char* _ptext, ushort t, int i, ushort* _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == 0) { return true; }
 
             var tt = _pdict[_ptext[i - 1]];

@@ -54,9 +54,6 @@ namespace ToolGood.TextFilter
                             } else {
                                 first.Context_012.EmotionalColor = context.EmotionalColor;
                             }
-                            //if (first.Context_34 != null) {
-                            //    first.Context_34.IsFenci = true;
-                            //}
                         }
                         return;
                     }

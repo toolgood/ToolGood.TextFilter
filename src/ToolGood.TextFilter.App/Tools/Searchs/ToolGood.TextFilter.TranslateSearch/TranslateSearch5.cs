@@ -19,7 +19,7 @@ namespace ToolGood.TextFilter
     {
 
         private ushort _firstMaxChar;
-        private ushort[] _dict;// 0 没有该值 1) 跳词, 2+)转成对应key
+        private ushort[] _dict;
         private ushort[] _bidiDict;
 
         private ushort[] _key;
@@ -97,11 +97,11 @@ namespace ToolGood.TextFilter
                             if (len == 2 && key.Length == 2) {
                                 sb[idx - 1] = key[0];
                                 sb[idx] = key[1];
-                            } else if (len == 2) { //&& key.Length == 1
+                            } else if (len == 2) { 
                                 sb[idx - 1] = key[0];
                                 ends[idx - 1] = src.End[i];
                                 continue;
-                            } else { //  len == 1  && key.Length == 1
+                            } else { 
                                 sb[idx] = key[0];
                             }
                         } else {
@@ -153,7 +153,6 @@ namespace ToolGood.TextFilter
                 for (int i = 0; i < length; i++) {
                     var t1 = _ptext[i];
                     var t = _pdict[t1];
-                    //if (t == 1) { p = 0; continue; }
                     if (t <= _firstMaxChar) {
                         p = t;
                         sb[idx] = t1;
@@ -182,11 +181,11 @@ namespace ToolGood.TextFilter
                             if (len == 2 && key.Length == 2) {
                                 sb[idx - 1] = key[0];
                                 sb[idx] = key[1];
-                            } else if (len == 2) { //&& key.Length == 1
+                            } else if (len == 2) { 
                                 sb[idx - 1] = key[0];
                                 ends[idx - 1] = src.End[i];
                                 continue;
-                            } else { //  len == 1  && key.Length == 1
+                            } else { 
                                 sb[idx] = key[0];
                             }
                         } else {
@@ -268,11 +267,11 @@ namespace ToolGood.TextFilter
                             if (len == 2 && key.Length == 2) {
                                 sb[idx - 1] = key[0];
                                 sb[idx] = key[1];
-                            } else if (len == 2) { //&& key.Length == 1
+                            } else if (len == 2) { 
                                 sb[idx - 1] = key[0];
                                 ends[idx - 1] = i;
                                 continue;
-                            } else { //  len == 1  && key.Length == 1
+                            } else { 
                                 sb[idx] = key[0];
                             }
                         } else {
@@ -327,7 +326,6 @@ namespace ToolGood.TextFilter
                 for (int i = 0; i < length; i++) {
                     var t1 = _ptext[i];
                     var t = _pdict[t1];
-                    //if (t == 1) { p = 0; continue; }
                     if (t <= _firstMaxChar) {
                         p = t;
                         sb[idx] = t1;
@@ -357,11 +355,11 @@ namespace ToolGood.TextFilter
                             if (len == 2 && key.Length == 2) {
                                 sb[idx - 1] = key[0];
                                 sb[idx] = key[1];
-                            } else if (len == 2) { //&& key.Length == 1
+                            } else if (len == 2) { 
                                 sb[idx - 1] = key[0];
                                 ends[idx - 1] = i;
                                 continue;
-                            } else { //  len == 1  && key.Length == 1
+                            } else { 
                                 sb[idx] = key[0];
                             }
                         } else {

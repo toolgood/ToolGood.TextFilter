@@ -108,16 +108,14 @@ namespace ToolGood.TextFilter
         public unsafe void FindAll_0(char* _ptext, in int length, HashSet<uint> set, List<TempWordsResultItem> result
             , int* _pfailure, bool* _pcheck, int* _pend)
         {
-            //byte resultType = 0;
             fixed (ushort* _pdict = &_dicts[0][0])
             fixed (byte* _pskipIndexs = &_skipIndexs[0]) {
                 var p = 0;
                 var len = length - 1;
                 for (int i = 0; i < length; i++) {
                     var t1 = _ptext[i];
-                    //resultType = (byte)(resultType | _pskipIndexs[t1]);
                     var t = _pdict[t1];
-                    if (t == 0xffff) { continue; }//跳词
+                    if (t == 0xffff) { continue; }
                     if (t <= _firstMaxChar) { p = _first_first[t]; continue; }
 
                     int next = 0;
@@ -139,7 +137,6 @@ namespace ToolGood.TextFilter
                     p = next;
                 }
             }
-            //return resultType;
         }
         public unsafe void FindAll_1(char* _ptext, in int length, HashSet<uint> set, List<TempWordsResultItem> result, int index
             , int* _pfailure, bool* _pcheck, int* _pend)
@@ -150,7 +147,7 @@ namespace ToolGood.TextFilter
                 for (int i = 0; i < length; i++) {
                     var t1 = _ptext[i];
                     var t = _pdict[t1];
-                    if (t >= 0xfffe) { continue; }//跳词
+                    if (t >= 0xfffe) { continue; }
                     if (t <= _firstMaxChar) { p = _first_first[t]; continue; }
 
                     int next = 0;
@@ -177,14 +174,13 @@ namespace ToolGood.TextFilter
         public unsafe void FindAll_2(char* _ptext, in int length, HashSet<uint> set, List<TempWordsResultItem> result, int index
             , int* _pfailure, bool* _pcheck, int* _pend)
         {
-            //byte type = (byte)(1 << (index - 1));
             fixed (ushort* _pdict = &_dicts[index][0]) {
                 var p = 0;
                 var len = length - 1;
                 for (int i = 0; i < length; i++) {
                     var t1 = _ptext[i];
                     var t = _pdict[t1];
-                    if (t >= 0xfffe) { continue; }//跳词
+                    if (t >= 0xfffe) { continue; }
                     if (t <= _firstMaxChar) { p = _first_first[t]; continue; }
 
                     int next = 0;
@@ -211,7 +207,6 @@ namespace ToolGood.TextFilter
         public unsafe void FindAll_3(char* _ptext, in int length, HashSet<uint> set, List<TempWordsResultItem> result, int index, bool* skips
              , int* _pfailure, bool* _pcheck, int* _pend)
         {
-            //byte type = (byte)(1 << (index - 1));
             fixed (ushort* _pdict = &_dicts[index][0]) {
                 var p = 0;
                 var len = length - 1;
@@ -219,7 +214,7 @@ namespace ToolGood.TextFilter
                     if (skips[i]) { continue; }
                     var t1 = _ptext[i];
                     var t = _pdict[t1];
-                    if (t >= 0xfffe) { continue; }//跳词
+                    if (t >= 0xfffe) { continue; }
                     if (t <= _firstMaxChar) { p = _first_first[t]; continue; }
 
                     int next = 0;
@@ -245,8 +240,6 @@ namespace ToolGood.TextFilter
         public unsafe void FindAll_4(char* _ptext, in int length, HashSet<uint> set, List<TempWordsResultItem> result, int index, bool* skips
              , int* _pfailure, bool* _pcheck, int* _pend)
         {
-            //byte type = (byte)(1 << (index - 1));
-
             fixed (ushort* _pdict = &_dicts[index][0]) {
                 var p = 0;
                 var len = length - 1;
@@ -254,7 +247,7 @@ namespace ToolGood.TextFilter
                     if (skips[i]) { continue; }
                     var t1 = _ptext[i];
                     var t = _pdict[t1];
-                    if (t == 0xffff) { continue; }//跳词
+                    if (t == 0xffff) { continue; }
                     if (t <= _firstMaxChar) { p = _first_first[t]; continue; }
 
                     int next = 0;
@@ -409,7 +402,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckNextChar(char* _ptext, int length, ushort t, int i, ushort* _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == length) { return true; }
 
             var tt = _pdict[_ptext[i + 1]];
@@ -420,7 +412,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckPreChar(char* _ptext, ushort t, int i, ushort* _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == 0) { return true; }
 
             var tt = _pdict[_ptext[i - 1]];
@@ -431,7 +422,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckPreChar(char* _ptext, ushort t, int i, ushort[] _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == 0) { return true; }
 
             var tt = _pdict[_ptext[i - 1]];

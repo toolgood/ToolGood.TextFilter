@@ -16,7 +16,7 @@ namespace ToolGood.TextFilter
     public class SkipwordsSearch : ISkipwordsSearch
     {
         private ushort _firstMaxChar;
-        private ushort[] _dict;// 0 没有该值 1) 跳词, 2+)转成对应key
+        private ushort[] _dict;
 
         private ushort[] _key;
         private Int32[] _next;
@@ -39,7 +39,7 @@ namespace ToolGood.TextFilter
 
                     var t = _pdict[t1];
                     if (t <= _firstMaxChar) { p = t; continue; }
-                    if (t == 0xffff) { continue; }//跳词   正常词句  跳词不存在的， 但 中间插 空格是可能的
+                    if (t == 0xffff) { continue; }
 
                     var next = _pnext[p] + t;
                     if (_pkey[next] == t) {

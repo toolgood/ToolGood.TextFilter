@@ -16,7 +16,7 @@ namespace ToolGood.TextFilter.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            ViewData["isRegister"] = SysApplication.IsRegister() ? "1" : "0"; // 是否注册
+            ViewData["isRegister"] = "1";
             ViewData["serviceEnd"] = SysApplication.ServiceEnd()?.ToString("yyyy-MM-dd HH:mm:ss") ?? ""; // 服务结束日期
 
 #if image
@@ -34,7 +34,7 @@ namespace ToolGood.TextFilter.Controllers
 #else
             bool hasGrpc = false; ;
 #endif
- 
+
             ViewData["hasImage"] = hasImage;
             ViewData["hasBrowser"] = hasBrowser;
             ViewData["hasGrpc"] = hasGrpc;

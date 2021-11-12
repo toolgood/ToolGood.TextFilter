@@ -18,16 +18,6 @@ namespace ToolGood.TextFilter.Services
             TextFindAllGrpcReply result = new TextFindAllGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -54,16 +44,6 @@ namespace ToolGood.TextFilter.Services
             TextFindAllGrpcReply result = new TextFindAllGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -91,16 +71,6 @@ namespace ToolGood.TextFilter.Services
             TextFindAllGrpcReply result = new TextFindAllGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -128,16 +98,6 @@ namespace ToolGood.TextFilter.Services
             TextFindAllGrpcReply result = new TextFindAllGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -167,16 +127,6 @@ namespace ToolGood.TextFilter.Services
             TextReplaceGrpcReply result = new TextReplaceGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -203,16 +153,6 @@ namespace ToolGood.TextFilter.Services
             TextReplaceGrpcReply result = new TextReplaceGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -240,16 +180,6 @@ namespace ToolGood.TextFilter.Services
             TextReplaceGrpcReply result = new TextReplaceGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -276,16 +206,6 @@ namespace ToolGood.TextFilter.Services
             TextReplaceGrpcReply result = new TextReplaceGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -316,16 +236,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -359,16 +269,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -403,16 +303,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -447,16 +337,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -493,16 +373,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -537,16 +407,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -581,16 +441,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -625,16 +475,6 @@ namespace ToolGood.TextFilter.Services
             TextFilterRequestIdGrpcReply result = new TextFilterRequestIdGrpcReply();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Task.FromResult(result);
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Task.FromResult(result);
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";

@@ -9,11 +9,11 @@ namespace ToolGood.TextFilter
 {
     public class ContactSearch2 : IContactSearch
     {
-        private int[] _dict;  // 0 跳过 
+        private int[] _dict;  
         private IntDictionary2[] _nextIndex;
-        private byte[] _intervals; // 当前间隔
-        private byte[] _maxNextIntervals; // 下一个最大间隔
-        private int[] _resultIndexs;  // 结果
+        private byte[] _intervals; 
+        private byte[] _maxNextIntervals; 
+        private int[] _resultIndexs;  
         private int[] _typeIndexs;
         private int[] _textIndexs;
 
@@ -39,11 +39,11 @@ namespace ToolGood.TextFilter
 
                 var temp = root;
                 while (temp != null) {
-                    if (temp.Item != null && temp.Item.End >= item.Start) { temp = temp.After; continue; } // 去重
+                    if (temp.Item != null && temp.Item.End >= item.Start) { temp = temp.After; continue; } 
 
                     if (_nextIndex[temp.Ptr].TryGetValue(t, ref idx)) {
                         var interval = _intervals[idx];
-                        if (interval == 0 || item.NplIndex - temp.NplIndex <= interval) { // 0为无限 第一次为0
+                        if (interval == 0 || item.NplIndex - temp.NplIndex <= interval) { 
                             var tmp = Append(temp, idx, idx, item);
                             if (tmp.ResultIndex != 0 /*&& temp.Item != null*/) {
                                 tempResult.Add(tmp);
@@ -57,7 +57,6 @@ namespace ToolGood.TextFilter
                     temp = temp.After;
                 }
                 if (find) {
-                    #region 排除无效节点
                     var parent = root;
                     temp = root.After;
                     while (temp != null) {
@@ -68,8 +67,6 @@ namespace ToolGood.TextFilter
                         }
                         temp = parent.After;
                     }
-                    #endregion
-                    // 将新节点 添加到最后
                     parent.After = newsRoot.After;
                     newsRoot.After = null;
                     find = false;

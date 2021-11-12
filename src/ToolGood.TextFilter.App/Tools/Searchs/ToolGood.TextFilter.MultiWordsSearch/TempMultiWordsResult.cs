@@ -8,7 +8,7 @@ namespace ToolGood.TextFilter
 
         public int ResultIndex;
 
-        public TempWordsResultItem[] KeywordIndexs;// = new List<TempWordsResultItem>();
+        public TempWordsResultItem[] KeywordIndexs;
 
         public TempMultiWordsResult(int resultIndex, TempWordsResultItem[] keywordIndexs)
         {

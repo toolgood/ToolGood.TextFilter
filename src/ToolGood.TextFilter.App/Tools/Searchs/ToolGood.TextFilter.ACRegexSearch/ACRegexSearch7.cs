@@ -90,13 +90,10 @@ namespace ToolGood.TextFilter
                     int* min = &_min;
                     var len = length - 1;
                     for (int i = 0; i < length; i++) {
-                        //if (i==23) {
-
-                        //}
                         var t1 = _ptext[i];
                         var t = _pdict[t1];
                         if (t == 0) { *min = 0; continue; }
-                        if (t == 0xffff) { continue; }//跳词
+                        if (t == 0xffff) { continue; }
 
                         var n = *(_pminLayer + t);
                         if (n == 1) {
@@ -105,7 +102,7 @@ namespace ToolGood.TextFilter
                                 Find(_ptext, t, i, set, skipSet, result, _pdict, _pend, _pfirst, findItems);
                             }
                         } else if (*min != 0) {
-                            if (*(_pmaxLayer + t) <= *min) { *min = 0; continue; }// 当前最小layer为min时，下一个字符最小layer应为min+1
+                            if (*(_pmaxLayer + t) <= *min) { *min = 0; continue; }
                             *min = n;
                             if (t >= _minEndKey && CheckNextChar(_ptext, len, t, i, _pdict)) {
                                 Find(_ptext, t, i, set, skipSet, result, _pdict, _pend, _pfirst, findItems);
@@ -212,9 +209,6 @@ namespace ToolGood.TextFilter
                         AddToResult(j, end, index, skipSet, result);
                     }
                 }
-                //if (index != 0 && skip && CheckPreChar(_ptext, tc, j, _pdict)) {
-                //    AddToResult(j, end, index, skipSet, result);
-                //}
             }
         }
         private unsafe void Find_2(char* _ptext, int end, int index, HashSet<uint> skipSet, List<TempWordsResultItem> result
@@ -247,10 +241,6 @@ namespace ToolGood.TextFilter
                         AddToResult(j, end, index, skipSet, result);
                     }
                 }
-                //index = _pend[next];
-                //if (index != 0 && skip && CheckPreChar(_ptext, tc, j, _pdict)) {
-                //    AddToResult(j, end, index, skipSet, result);
-                //}
             }
         }
 
@@ -275,10 +265,6 @@ namespace ToolGood.TextFilter
                         AddToResult(j, end, index, skipSet, result);
                     }
                 }
-                //index = _pend[next];
-                //if (index != 0 && skip && CheckPreChar(_ptext, tc, j, _pdict)) {
-                //    AddToResult(j, end, index, skipSet, result);
-                //}
             }
         }
         private unsafe void Find_4(char* _ptext, int end, int index, bool* skips, HashSet<uint> skipSet, List<TempWordsResultItem> result
@@ -311,10 +297,6 @@ namespace ToolGood.TextFilter
                         AddToResult(j, end, index, skipSet, result);
                     }
                 }
-                //index = _pend[next];
-                //if (index != 0 && skip && CheckPreChar(_ptext, tc, j, _pdict)) {
-                //    AddToResult(j, end, index, skipSet, result);
-                //}
             }
         }
 
@@ -332,7 +314,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckNextChar(char* _ptext, int length, ushort t, int i, ushort* _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == length) { return true; }
 
             var tt = _pdict[_ptext[i + 1]];
@@ -343,7 +324,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckPreChar(char* _ptext, ushort t, int i, ushort* _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == 0) { return true; }
 
             var tt = _pdict[_ptext[i - 1]];
@@ -354,7 +334,6 @@ namespace ToolGood.TextFilter
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckPreChar(char* _ptext, ushort t, int i, ushort[] _pdict)
         {
-            //非数字与英文
             if (t < _azNumMinChar || t > _azNumMaxChar || i == 0) { return true; }
 
             var tt = _pdict[_ptext[i - 1]];

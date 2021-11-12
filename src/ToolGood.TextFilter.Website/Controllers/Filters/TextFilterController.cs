@@ -22,11 +22,6 @@ namespace ToolGood.TextFilter.Controllers
             TextFilterResult result = new TextFilterResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -62,7 +57,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
         [Route("/api/html-filter")]
         public async Task<IActionResult> HtmlFilter(TextFilterRequest request)
@@ -70,11 +64,6 @@ namespace ToolGood.TextFilter.Controllers
             TextFilterResult result = new TextFilterResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -110,7 +99,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
         [Route("/api/json-filter")]
         public async Task<IActionResult> JsonFilter(TextFilterRequest request)
@@ -118,11 +106,6 @@ namespace ToolGood.TextFilter.Controllers
             TextFilterResult result = new TextFilterResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -163,11 +146,6 @@ namespace ToolGood.TextFilter.Controllers
             TextFilterResult result = new TextFilterResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -203,7 +181,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         #endregion
@@ -216,11 +193,6 @@ namespace ToolGood.TextFilter.Controllers
             TextReplaceResult result = new TextReplaceResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -257,7 +229,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
         [Route("/api/html-replace")]
         public async Task<IActionResult> HtmlReplace(TextReplaceRequest request)
@@ -265,11 +236,6 @@ namespace ToolGood.TextFilter.Controllers
             TextReplaceResult result = new TextReplaceResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -306,7 +272,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
         [Route("/api/json-replace")]
         public async Task<IActionResult> JsonReplace(TextReplaceRequest request)
@@ -314,11 +279,6 @@ namespace ToolGood.TextFilter.Controllers
             TextReplaceResult result = new TextReplaceResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -355,7 +315,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
         [Route("/api/markdown-replace")]
         public async Task<IActionResult> MarkdownReplace(TextReplaceRequest request)
@@ -363,11 +322,6 @@ namespace ToolGood.TextFilter.Controllers
             TextReplaceResult result = new TextReplaceResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -404,7 +358,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
         #endregion
 

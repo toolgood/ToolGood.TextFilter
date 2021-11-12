@@ -22,16 +22,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -73,7 +63,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         [Route("/api/async/html-filter")]
@@ -82,16 +71,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -133,7 +112,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         [Route("/api/async/json-filter")]
@@ -142,16 +120,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -193,7 +161,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         [Route("/api/async/markdown-filter")]
@@ -202,16 +169,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -253,7 +210,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
 #endregion
@@ -266,16 +222,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -319,7 +265,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         [Route("/api/async/html-replace")]
@@ -328,16 +273,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -381,7 +316,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         [Route("/api/async/json-replace")]
@@ -390,16 +324,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -443,7 +367,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
         [Route("/api/async/markdown-replace")]
@@ -453,16 +376,6 @@ namespace ToolGood.TextFilter.Controllers
 
             try {
 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (SysApplication.HasGrpcLicence() == false) {
-                    result.Code = 1;
-                    result.Message = "error: grpc/async not licenced.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -506,7 +419,6 @@ namespace ToolGood.TextFilter.Controllers
             var str = result.ToString();
             result = null;
             return Content(str, "application/json");
-            //return Content(result.ToString(), "application/json");
         }
 
 #endregion

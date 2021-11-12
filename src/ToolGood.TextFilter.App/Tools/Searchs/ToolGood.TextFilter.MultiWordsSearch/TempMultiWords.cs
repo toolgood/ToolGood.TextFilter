@@ -6,15 +6,15 @@ namespace ToolGood.TextFilter
 {
     class TempMultiWords
     {
-        public int Ptr;    // 检索位置
-        public int NplIndex;  // 字节位置
-        public int MaxNextIndex; // 最大下一个位置
+        public int Ptr;    
+        public int NplIndex;  
+        public int MaxNextIndex; 
 
-        public int ResultIndex; //
-        public TempMultiWords Parent;// 上一个节点
+        public int ResultIndex; 
+        public TempMultiWords Parent;
         public TempWordsResultItem Item;
 
-        public TempMultiWords After;// 下一个
+        public TempMultiWords After;
  
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

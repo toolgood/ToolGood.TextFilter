@@ -21,11 +21,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -52,23 +47,10 @@ namespace ToolGood.TextFilter.Controllers
                     result.Message = "error: textReplaceNoticeUrl is error.";
                     return Content(result.ToString(), "application/json");
                 }
-                if (string.IsNullOrEmpty(request.ImageFilterNoticeUrl) == false && IsUrl(request.ImageFilterNoticeUrl) == false) {
-                    result.Code = 1;
-                    result.Message = "error: imageFilterNoticeUrl is error.";
-                    return Content(result.ToString(), "application/json");
-                }
-                if (string.IsNullOrEmpty(request.ImageClassifyNoticeUrl) == false && IsUrl(request.ImageClassifyNoticeUrl) == false) {
-                    result.Code = 1;
-                    result.Message = "error: imageClassifyNoticeUrl is error.";
-                    return Content(result.ToString(), "application/json");
-                }
                 #endregion
 
                 SysApplication.SetTextFilterNoticeUrl(request.TextFilterNoticeUrl);
                 SysApplication.SetTextReplaceNoticeUrl(request.TextReplaceNoticeUrl);
-                //SysApplication.SetImageFilterNoticeUrl(request.ImageFilterNoticeUrl);
-                //SysApplication.SetImageClassifyNoticeUrl(request.ImageClassifyNoticeUrl);
-                //SysApplication.SetImageTempPath(request.ImageTempPath);
                 SysApplication.SetSkipword(request.Skipword);
 
             } catch (Exception ex) {
@@ -91,11 +73,6 @@ namespace ToolGood.TextFilter.Controllers
             CommonResult result = new CommonResult();
             try {
                 #region Check
-                if (SysApplication.IsRegister() == false) {
-                    result.Code = 1;
-                    result.Message = "error: software not registered.";
-                    return Content(result.ToString(), "application/json");
-                }
                 if (SysApplication.LoadTextDataError()) {
                     result.Code = 1;
                     result.Message = "error: Load data error.";
@@ -126,34 +103,6 @@ namespace ToolGood.TextFilter.Controllers
             dict["licenceTxt"] = "";
             return new JsonResult(dict);
         }
-
-        //[Route("/api/sys-Update-Licence")]
-        //public async Task<IActionResult> UpdateLicence(UpdateLicenceRequest request)
-        //{
-        //    CommonResult result = new CommonResult();
-
-        //    try {
-        //        #region Check
-        //        if (this.Request.ContentType.Contains("application/json", StringComparison.OrdinalIgnoreCase)) {
-        //            StreamReader streamReader = new StreamReader(Request.Body);
-        //            var txt = await streamReader.ReadToEndAsync();
-        //            streamReader.Close();
-        //            request = JsonConvert.DeserializeObject<UpdateLicenceRequest>(txt);
-        //        }
-        //        if (request == null || request.Licence == null) {
-        //            result.Code = 1;
-        //            result.Message = "error: interval is null.";
-        //            return Content(result.ToString(), "application/json");
-        //        }
-        //        #endregion
-
-        //        SysApplication.UpdateLicence(request.Licence);
-        //    } catch (Exception ex) {
-        //        result.Code = 1;
-        //        result.Message = ex.Message;
-        //    }
-        //    return Content(result.ToString(), "application/json");
-        //}
 
 
         [Route("/api/sys-init-Data")]
