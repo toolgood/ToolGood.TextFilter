@@ -5,7 +5,7 @@ using ToolGood.TextFilter.App.Datas.TextFilters;
 
 namespace ToolGood.TextFilter
 {
-    public class TempWordsResultItem 
+    public class TempWordsResultItem
     {
         internal TempWordsResultItem(int start, int end, FenciKeywordInfo keyInfo)
         {
@@ -95,8 +95,8 @@ namespace ToolGood.TextFilter
         private static double[] _score = new double[]
         {
             1,4,3,2,0.5,-0.3,-0.5,-1,0,0,
-            1.0,1.1,1.2,1.3,1.4,1.5,1.6,1.7,1.8,1.9,
-            -10,-11,-12,-13,-14,-15,-16,-17,-18,-19,
+            1.0,1.05,1.1,1.15,1.2,1.25,1.3,1.35,1.4,1.45,
+            -2.5,-2.52,-2.54,-2.56,-2.58,-2.6,-2.62,-2.64,-2.66,-2.68,
         };
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
