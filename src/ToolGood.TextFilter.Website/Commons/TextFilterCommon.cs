@@ -12,6 +12,7 @@ namespace ToolGood.TextFilter.Website.Commons
     {
         public static void SetTextFilterResult(TextFilterResult result, IllegalWordsFindAllResult temp, ITextRequest request)
         {
+            result.SentimentScore = temp.SentimentScore;
             if (temp.RiskLevel == IllegalWordsRiskLevel.Pass) {
                 result.RiskLevel = "PASS";
             } else if (temp.RiskLevel == IllegalWordsRiskLevel.Reject) {
@@ -28,7 +29,6 @@ namespace ToolGood.TextFilter.Website.Commons
             } else {
                 result.RiskLevel = "REVIEW";
                 result.RiskCode = temp.Code;
-                result.SentimentScore = temp.SentimentScore;
                 result.Details = new List<TextFilterDetailItem>();
                 HashSet<string> postions = new HashSet<string>();
                 GetTextFilterDetailResult(result.Details, temp.ReviewSingleItems, postions, IllegalWordsRiskLevel.Review, request);

@@ -329,17 +329,16 @@ namespace ToolGood.TextFilter.Application
             illegalWords2 = null;
             illegalWords3 = null;
 
+            result.SentimentScore = CalcEmotionScore(fenciwords);
             if (result.RejectSingleItems.Count > 0 || result.RejectMultiItems.Count > 0) {
                 result.RiskLevel = IllegalWordsRiskLevel.Reject;
                 result.Code = GetCode(result.RejectSingleItems, result.RejectMultiItems);
             } else if (result.ReviewSingleItems.Count > 0 || result.ReviewMultiItems.Count > 0) {
                 result.RiskLevel = IllegalWordsRiskLevel.Review;
                 result.Code = GetCode(result.ReviewSingleItems, result.ReviewMultiItems);
-                result.SentimentScore = CalcEmotionScore(fenciwords);
             } else if (result.ContactItems.Count > 0) {
                 result.RiskLevel = IllegalWordsRiskLevel.Review;
                 result.Code = "Contact";
-                result.SentimentScore = CalcEmotionScore(fenciwords);
             }
             fenciwords = null;
 
