@@ -19,9 +19,11 @@ namespace ToolGood.TextFilter.Commons
             if (System.IO.File.Exists(path) == false) {
                 System.IO.File.Create(path).Close();
                 var helper = SqlHelperFactory.OpenSqliteFile(path);
-#if !Win
-                executeLinuxCmd("chmod", "777 " + path);
-#endif
+
+                if (Environment.OSVersion.Platform == PlatformID.Unix || Environment.OSVersion.Platform == PlatformID.Other) {
+                    executeLinuxCmd("chmod", "777 " + path);
+                }
+
                 helper._TableHelper.CreateTable(typeof(DbKeywordType));
                 helper._TableHelper.CreateTable(typeof(DbSetting));
 

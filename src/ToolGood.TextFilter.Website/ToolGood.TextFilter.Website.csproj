@@ -38,9 +38,6 @@
   </PropertyGroup>
 
 
-  <ItemGroup Condition="$(DefineConstants.Contains('Win'))">
-    <PackageReference Include="System.Management" Version="5.0.0" />
-  </ItemGroup>
   
   <ItemGroup Condition="$(DefineConstants.Contains('Async'))">
     <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="5.0.1" />
@@ -55,22 +52,22 @@
 
   <ItemGroup Condition="$(DefineConstants.Contains('Win-app'))">
     <Reference Include="ToolGood.TextFilter.App">
-      <HintPath>..\libs\Win\ToolGood.TextFilter.App.dll</HintPath>
+      <HintPath>..\libs\Release\ToolGood.TextFilter.App.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains('Win-Async-app'))">
     <Reference Include="ToolGood.TextFilter.App">
-      <HintPath>..\libs\Win-Async\ToolGood.TextFilter.App.dll</HintPath>
+      <HintPath>..\libs\Release-Async\ToolGood.TextFilter.App.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains('Linux-app'))">
     <Reference Include="ToolGood.TextFilter.App">
-      <HintPath>..\libs\Linux\ToolGood.TextFilter.App.dll</HintPath>
+      <HintPath>..\libs\Release\ToolGood.TextFilter.App.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains('Linux-Async-app'))">
     <Reference Include="ToolGood.TextFilter.App">
-      <HintPath>..\libs\Linux-Async\ToolGood.TextFilter.App.dll</HintPath>
+      <HintPath>..\libs\Release-Async\ToolGood.TextFilter.App.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition="$(DefineConstants.Contains('Consul'))">
