@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ToolGood.TextFilter.Builder": {
+      "commandName": "Project",
+      "commandLineArgs": "\"TextClassify.sav\""
+    }
+  }
+}
