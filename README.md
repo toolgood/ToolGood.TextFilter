@@ -29,7 +29,7 @@
 - 该敏感词库从`70W多词组`中整理出来的，外加18W多组常用分词、2W多字的拼音扩展、14066个左右拆字、4000组繁简转化，4850组同音同形字，1160组异形字…… 
 - 免费领取方法： 加QQ`1665690808`，发送申请人照片，要求手执【免费领取敏感词库】纸条，并且站在带公司Logo的墙前（或学校大门口）。
 -
-- **[如不想拍照，可花200元购买【敏感词库】，并赠送【程序数据包】](https://mianbaoduo.com/o/bread/mbd-YpaXmZdv)**。
+- **[如不想拍照，可花200元购买【敏感词库】，并赠送【程序数据包】](https://mbd.pub/o/bread/mbd-YpaXmZdv)**。
 -
 - 为什么会有免费领取【敏感词库】？因为一套敏感词库无法满足各种场景，而每个公司使用的场景又不同。如`你妈`，在熟人环境下是`正常词`，在商品评价绝对是`脏词`，在游戏中绝大数为`脏词`。
 
@@ -53,18 +53,18 @@
 
 4、[网络常用敏感词过滤方法](https://www.cnblogs.com/toolgood/p/15261554.html)
 
-5、[ToolGood.Words算法过滤敏感词优化原理](https://mianbaoduo.com/o/bread/YZ2Yk5hy)  （收费30元，一顿KFC）
+5、[ToolGood.Words算法过滤敏感词优化原理](https://mbd.pub/o/bread/YZ2Yk5hy)  （收费30元，一顿KFC）
 
-6、[ToolGood.TextFilter开源代码优化详解](https://mianbaoduo.com/o/bread/YpWXlp9u)  （收费300元）
+6、[ToolGood.TextFilter开源代码优化详解](https://mbd.pub/o/bread/YpWXlp9u)  （收费300元）
 与IllegalWordsSearch算法进行对比，阐述了ToolGood.TextFilter过滤算法优化点，如何减少内存使用量。
 还有一小部分未写好，心急的人可以先买，我会持续更新。
 
-7、[正则转DFA算法（C#版、JAVA版）](https://mianbaoduo.com/o/bread/Y5ubl5w=) （收费30元，一顿KFC）
+7、[正则转DFA算法（C#版、JAVA版）](https://mbd.pub/o/bread/Y5ubl5w=) （收费30元，一顿KFC）
 ToolGood.TextFilter的一个核心算法就使用到正则转DFA。（目前只有C#代码）
 
 8、JAVA版ToolGood.TextFilter
 
-9、C#版图片鉴黄
+9、[C#版图片鉴黄](https://mbd.pub/o/bread/mbd-YZ2Yk5hw)（收费30元，一顿KFC）
 
 ## LICENSE
 >您可以在GPLv3许可证下使用它。请参阅LICENSE。
