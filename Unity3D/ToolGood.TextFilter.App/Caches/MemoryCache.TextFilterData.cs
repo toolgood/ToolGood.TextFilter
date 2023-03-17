@@ -119,6 +119,7 @@ namespace ToolGood.TextFilter.Commons
         {
             string errorMessage;
             if (LoadTextFilter(DataFile, out errorMessage)) {
+                KeywordTypes = CustomKeywordType.Build(KeywordTypeInfos);
                 return true;
             }
             return false;
