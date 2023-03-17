@@ -5,7 +5,7 @@ namespace ToolGood.TextFilter
     /// <summary>
     /// 违规词匹配类型
     /// </summary>
-    public enum IllegalWordsMatchType : byte
+    public enum IllegalWordsMatchType //: byte
     {
         /// <summary>
         /// 普通匹配

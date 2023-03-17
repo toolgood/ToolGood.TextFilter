@@ -5,7 +5,7 @@ namespace ToolGood.TextFilter
     /// <summary>
     /// 敏感词分险等级
     /// </summary>
-    public enum IllegalWordsRiskLevel : byte
+    public enum IllegalWordsRiskLevel //: byte
     {
         /// <summary>
         /// 建议屏蔽

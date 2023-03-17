@@ -4,12 +4,13 @@ using System;
 
 namespace ToolGood.TextFilter.Commons
 {
-    sealed partial class MemoryCache : IDisposable
+    public partial class MemoryCache : IDisposable
     {
         private static MemoryCache _memoryCache;
         public static string DataFile = "";
         public static MemoryCache Instance {
-            get {
+            get
+            {
                 if (_memoryCache == null) {
                     Init();
                 }
@@ -27,7 +28,7 @@ namespace ToolGood.TextFilter.Commons
             lock (lockObj) {
                 MemoryCache cache = new MemoryCache();
                 cache.LoadTextFilter();
-        
+
                 if (_memoryCache != null) {
                     _memoryCache.Dispose();
                     _memoryCache = null;

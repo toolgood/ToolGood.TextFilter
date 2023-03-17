@@ -6,7 +6,7 @@ namespace ToolGood.TextFilter
     /// <summary>
     /// 违规词类型
     /// </summary>
-    public enum IllegalWordsSrcRiskLevel : byte
+    public enum IllegalWordsSrcRiskLevel //: byte
     {
 
         Part = 255,
