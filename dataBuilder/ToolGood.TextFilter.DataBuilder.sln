@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolGood.TextFilter.DataBui
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ToolGood.TextFilter.Builder", "ToolGood.TextFilter.Builder\ToolGood.TextFilter.Builder.csproj", "{2729A3BE-D788-44E3-AE1D-0059213069A8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolGood.TextFilter.DataBuilder", "ToolGood.TextFilter.DataBuilder\ToolGood.TextFilter.DataBuilder.csproj", "{6C3B79A0-33B6-4661-AF22-D18E9DC5A6DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2729A3BE-D788-44E3-AE1D-0059213069A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2729A3BE-D788-44E3-AE1D-0059213069A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2729A3BE-D788-44E3-AE1D-0059213069A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C3B79A0-33B6-4661-AF22-D18E9DC5A6DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C3B79A0-33B6-4661-AF22-D18E9DC5A6DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C3B79A0-33B6-4661-AF22-D18E9DC5A6DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C3B79A0-33B6-4661-AF22-D18E9DC5A6DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
