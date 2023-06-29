@@ -23,7 +23,7 @@
 - 编译后程序下载（非异步版）： https://pan.baidu.com/s/1FLH7U3Nw2zE0Q3Vb-GtWZg 提取码：bqgn 
 - 测试数据包（只有谩骂识别 ）：https://pan.baidu.com/s/12JjvSG1lAifdpRHH1GL1gA 提取码：tofy
 - 相关文档：https://toolgood.com/FAQ
-
+- 常见问题解答：https://github.com/toolgood/ToolGood.TextFilter/issues/4
 
 ## 领取【敏感词库】
 - 该敏感词库从`70W多词组`中整理出来的，外加18W多组常用分词、2W多字的拼音扩展、14066个左右拆字、4000组繁简转化，4850组同音同形字，1160组异形字…… 
