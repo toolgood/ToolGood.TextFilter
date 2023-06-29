@@ -20,8 +20,8 @@
 注：`C#`语言编译环境`VS2022`，核心源码只有`C#`语言版本，其他语言本人并不精通。
 
 ## 相关下载
-- 编译后程序下载（非异步版）： https://pan.baidu.com/s/1FLH7U3Nw2zE0Q3Vb-GtWZg 提取码：bqgn 
-- 测试数据包（只有谩骂识别 ）：https://pan.baidu.com/s/12JjvSG1lAifdpRHH1GL1gA 提取码：tofy
+- 编译后程序下载（非异步版）： https://pan.baidu.com/s/1FLH7U3Nw2zE0Q3Vb-GtWZg?pwd=bqgn 
+- 测试数据包（只有谩骂识别）：https://pan.baidu.com/s/12JjvSG1lAifdpRHH1GL1gA?pwd=tofy
 - 相关文档：https://toolgood.com/FAQ
 - 常见问题解答：https://github.com/toolgood/ToolGood.TextFilter/issues/4
 
