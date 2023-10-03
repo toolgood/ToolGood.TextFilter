@@ -88,3 +88,8 @@ ToolGood.TextFilter的一个核心算法就使用到正则转DFA。（目前只�
 
 ## LICENSE
 >您可以在GPLv3许可证下使用它。请参阅LICENSE。
+
+## 吐槽
+>代码写了那么多年，还没50行通达信代码价值高。。。
+
+
