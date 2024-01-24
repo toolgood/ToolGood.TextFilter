@@ -8,6 +8,9 @@ using ToolGood.TextFilter.App.Datas.TextFilters;
 
 namespace ToolGood.TextFilter
 {
+    /// <summary>
+    /// 没用到的类
+    /// </summary>
     public class ACTextFilterSearch : IACRegexSearch
     {
         public byte[] _skipIndexs;

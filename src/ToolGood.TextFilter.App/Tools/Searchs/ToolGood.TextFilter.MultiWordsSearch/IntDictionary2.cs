@@ -7,6 +7,10 @@ using System.Runtime.CompilerServices;
 
 namespace ToolGood.TextFilter
 {
+    /// <summary>
+    ///  优化Dictionary<int,int>类型
+    ///  
+    /// </summary>
     public struct IntDictionary2
     {
         private int[] _keys;
@@ -72,6 +76,11 @@ namespace ToolGood.TextFilter
 
 
         #region Load
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        /// <param name="br"></param>
+        /// <returns></returns>
         public static IntDictionary2 Load(BinaryReader br)
         {
             var len = br.ReadInt32();

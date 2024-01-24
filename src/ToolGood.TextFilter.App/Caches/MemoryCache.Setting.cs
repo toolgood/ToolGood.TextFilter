@@ -23,7 +23,9 @@ namespace ToolGood.TextFilter.Commons
             TextFilterNoticeUrl = null;
             TextReplaceNoticeUrl = null;
         }
-
+        /// <summary>
+        /// 加载配置信息
+        /// </summary>
         private void LoadSettingData()
         {
             try {

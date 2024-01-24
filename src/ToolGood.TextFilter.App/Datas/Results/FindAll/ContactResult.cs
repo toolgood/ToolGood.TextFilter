@@ -8,6 +8,9 @@ namespace ToolGood.TextFilter.App.Datas.Results
     /// </summary>
     public struct ContactResult
     {
+        /// <summary>
+        /// 是否设置
+        /// </summary>
         internal bool IsSet; 
         /// <summary>
         /// 联系方式类型： 0) 手机号, 1) QQ号, 2) 微信号, 3) 微博号，4）Q群号

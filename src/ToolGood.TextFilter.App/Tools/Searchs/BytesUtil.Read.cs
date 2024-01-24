@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 
 namespace ToolGood.TextFilter
 {
+    /// <summary>
+    /// BinaryReader 读取  Byte[]扩展类
+    /// </summary>
     static partial class BytesUtil
     {
  

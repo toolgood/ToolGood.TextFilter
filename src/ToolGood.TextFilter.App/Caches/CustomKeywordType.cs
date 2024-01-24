@@ -10,13 +10,13 @@ namespace ToolGood.TextFilter.Commons
 {
     public sealed class CustomKeywordType
     {
-        public string Code;
-        public IllegalWordsRiskLevel? RiskLevel_1;
-        public IllegalWordsRiskLevel? RiskLevel_2;
-        public IllegalWordsRiskLevel? RiskLevel_3;
-        public bool UseTime;
-        public DateTime? StartTime;
-        public DateTime? EndTime;
+        public string Code; // 编码
+        public IllegalWordsRiskLevel? RiskLevel_1; // 第一级 敏感词分险等级
+        public IllegalWordsRiskLevel? RiskLevel_2; // 第二级 敏感词分险等级
+        public IllegalWordsRiskLevel? RiskLevel_3; // 第三级 敏感词分险等级
+        public bool UseTime;//是否使用时间区间
+        public DateTime? StartTime;//开始时间
+        public DateTime? EndTime;//结束时间
 
 
         public static CustomKeywordType[] Build(KeywordTypeInfo[] infos, List<DbKeywordType> keywordTypes)

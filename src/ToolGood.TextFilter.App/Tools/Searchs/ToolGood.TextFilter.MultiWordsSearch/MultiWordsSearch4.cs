@@ -6,48 +6,54 @@ using System.Runtime.CompilerServices;
 
 namespace ToolGood.TextFilter
 {
+    /// <summary>
+    /// MultiWordsSearch4类是一个核心类，用于检索多组敏感词组
+    /// </summary>
     public class MultiWordsSearch4 : IMultiWordsSearch
     {
-        private int[] _dict;   
-        private IntDictionary2[] _nextIndex;
-        private byte[] _intervals; 
-        private byte[] _maxNextIntervals; 
-        private int[] _resultIndexs;  
+        private int[] _dict;        // 映射表
+        private IntDictionary2[] _nextIndex; // 下一个索引集
+        private byte[] _intervals;  // 间隔数量集
+        private byte[] _maxNextIntervals;  // 下一个最大间隔数量集
+        private int[] _resultIndexs;    // 结果索引集
 
 
         public List<TempMultiWordsResult> FindAll(List<TempWordsResultItem> txt)
         {
-            TempMultiWords root = new TempMultiWords();
-            List<TempMultiWords> tempResult = new List<TempMultiWords>();
-            TempMultiWords newsRoot = new TempMultiWords();
+            TempMultiWords root = new TempMultiWords();// 根
+            List<TempMultiWords> tempResult = new List<TempMultiWords>(); 
+            TempMultiWords newsRoot = new TempMultiWords(); // 根
 
             bool find = false;
             int idx = 0;
             for (int i = 0; i < txt.Count; i++) {
                 var item = txt[i];
-                var t = _dict[item.SingleIndex];
+                var t = _dict[item.SingleIndex]; // 映射字
                 if (t == 0) { continue; }
 
-                TempMultiWords news = newsRoot;
+                TempMultiWords news = newsRoot; // 初始 默认根
 
-                var temp = root;
+                var temp = root; // 初始 默认根
                 while (temp != null) {
+                    // 获取 下一个
                     if (temp.Item != null && temp.Item.End >= item.Start) { temp = temp.After; continue; } 
 
+                    // 最后节点 反推
                     if (_nextIndex[temp.Ptr].TryGetValue(t, ref idx)) {
-                        var interval = _intervals[idx];
-                        if (interval == 0 || item.NplIndex - temp.NplIndex <= interval) { 
-                            var tmp = Append(temp, idx, idx, item);
-                            if (tmp.ResultIndex != 0 /*&& temp.Item != null*/) {
+                        var interval = _intervals[idx]; // 多组字词 的 间隔
+                        if (interval == 0 || item.NplIndex - temp.NplIndex <= interval) {  
+                            var tmp = Append(temp, idx, idx, item);  // 生成
+                            if (tmp.ResultIndex != 0 /*&& temp.Item != null*/) { // 有值
                                 tempResult.Add(tmp);
-                                if (_nextIndex[tmp.Ptr].HasNoneKey()) { temp = temp.After; continue; }
+                                // 判断 无值
+                                if (_nextIndex[tmp.Ptr].HasNoneKey()) { temp = temp.After; continue; } 
                             }
-                            news.After = tmp;
-                            news = tmp;
-                            find = true;
+                            news.After = tmp; // 下一个节点
+                            news = tmp;     // 设置下一个节点
+                            find = true; // 设置 find 状态
                         }
                     }
-                    temp = temp.After;
+                    temp = temp.After; // 获取 下一个
                 }
 
                 if (find) {
@@ -73,7 +79,7 @@ namespace ToolGood.TextFilter
             root.ClearAll();
 
             List<TempMultiWordsResult> results = new List<TempMultiWordsResult>(tempResult.Count);
-            int lastKeywordsId = -1;
+            int lastKeywordsId = -1;// 初始值，防重复，如  ABC + ABCE  与  ABC + CE
             TempMultiWordsResult lastMultiWordsResult = null;
             #region Build Result
 
@@ -81,6 +87,7 @@ namespace ToolGood.TextFilter
                 var item = tempResult[i];
                 Stack<TempWordsResultItem> stack = new Stack<TempWordsResultItem>();
                 var temp = item;
+                // 从右到左
                 while (temp.Ptr != 0 /*!= root*/) {
                     if (temp.Item != null) {
                         stack.Push(temp.Item);
@@ -88,8 +95,8 @@ namespace ToolGood.TextFilter
                     temp = temp.Parent;
                 }
 
+                // 反转集合，集合从左到右
                 var len = stack.Count;
-
                 TempWordsResultItem[] items = new TempWordsResultItem[len];
                 for (int j = 0; j < len; j++) { items[j] = stack.Pop(); }
 

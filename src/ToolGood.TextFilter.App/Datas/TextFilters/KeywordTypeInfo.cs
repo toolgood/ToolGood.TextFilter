@@ -9,12 +9,12 @@ namespace ToolGood.TextFilter.App.Datas.TextFilters
     public struct KeywordTypeInfo
     {
         public ushort Id;
-        public ushort ParentId;
-        public string Code;
-        public string Name;
-        public bool UseTime;
-        public DateTime? StartTime;
-        public DateTime? EndTime;
+        public ushort ParentId; // 父id
+        public string Code; //编码
+        public string Name;  // 名称
+        public bool UseTime; // 开始时间区间
+        public DateTime? StartTime; // 开始时间
+        public DateTime? EndTime; // 结束时间
 
         static internal KeywordTypeInfo[] ReadList(BinaryReader br)
         {
@@ -28,7 +28,7 @@ namespace ToolGood.TextFilter.App.Datas.TextFilters
                 info.Name = br.ReadString();
                 info.UseTime = br.ReadBoolean();
                 var bt = br.ReadInt64();
-                if (bt!=0) {
+                if (bt != 0) {
                     info.StartTime = new DateTime(2000, 1, 1).AddSeconds(bt);
                 }
                 bt = br.ReadInt64();

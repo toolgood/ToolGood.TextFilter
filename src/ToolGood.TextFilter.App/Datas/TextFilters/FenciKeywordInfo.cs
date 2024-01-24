@@ -6,6 +6,9 @@ namespace ToolGood.TextFilter.App.Datas.TextFilters
 {
     public struct FenciKeywordInfo
     {
+        /// <summary>
+        /// 文字长度
+        /// </summary>
         public sbyte KeywordLength;
 
         /// <summary>
