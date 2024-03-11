@@ -10,11 +10,18 @@ namespace ToolGood.TextFilter.App.Datas.Results
         /// 索引
         /// </summary>
         public int Index;
-
+        /// <summary>
+        /// 类型ID
+        /// </summary>
         public int TypeId;
-
+        /// <summary>
+        /// 类型
+        /// </summary>
         public string Code;
 
+        /// <summary>
+        /// 子
+        /// </summary>
         public MultiWordsResultItem[] Items;
 
 

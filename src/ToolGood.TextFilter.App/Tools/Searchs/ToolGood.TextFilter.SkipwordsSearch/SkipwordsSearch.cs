@@ -12,7 +12,9 @@ namespace ToolGood.TextFilter
         unsafe bool FindAll(char* _ptext, int length, bool* result);
 
     }
-
+    /// <summary>
+    /// SkipwordsSearch类是缩小版的KeywordsSearch2。
+    /// </summary>
     public class SkipwordsSearch : ISkipwordsSearch
     {
         private ushort _firstMaxChar;
@@ -20,7 +22,7 @@ namespace ToolGood.TextFilter
 
         private ushort[] _key;
         private Int32[] _next;
-        private Int32[] _checkLen;
+        private Int32[] _checkLen;//跳词长度
         private Int32[] _failure;
 
         #region unsafe FindAll
@@ -35,41 +37,41 @@ namespace ToolGood.TextFilter
             fixed (Int32* _pfailure = &_failure[0]) {
                 var p = 0;
                 for (int i = 0; i < length; i++) {
-                    var t1 = _ptext[i];
+                    var t1 = _ptext[i]; // 获取字符
 
-                    var t = _pdict[t1];
-                    if (t <= _firstMaxChar) { p = t; continue; }
-                    if (t == 0xffff) { continue; }
+                    var t = _pdict[t1];// 转成映射值
+                    if (t <= _firstMaxChar) { p = t; continue; }// ★ 映射值 <= _firstMaxChar 时，为特殊敏感词字符，字符只出现在敏感词的第一位
+                    if (t == 0xffff) { continue; }// 不存在跳过，注这里跳过类【空格】
 
-                    var next = _pnext[p] + t;
-                    if (_pkey[next] == t) {
-                        var len = _pcheck[next];
-                        if (len > 0) {
-                            _find = true;
-                            var idx = i;
+                    var next = _pnext[p] + t;// 下一个索引位置，只是可能，待验证
+                    if (_pkey[next] == t) {// 验证 是否为下一个索引位置
+                        var len = _pcheck[next];// 获取敏感词组的长度
+                        if (len > 0) {// 长度大于0，表示敏感词存在
+                            _find = true;// 赋值，表示查找到了
+                            var idx = i; // 索引
                             while (len != 0) {
-                                if (_pdict[_ptext[idx]] != 0xffff) { len--; }
-                                result[idx] = true;
-                                idx--;
+                                if (_pdict[_ptext[idx]] != 0xffff) { len--; }// ★ 判断不是为空格， 长度减一
+                                result[idx] = true;// 设置跳词标志
+                                idx--;   // 索引减一
                             }
                         }
-                        p = next;
+                        p = next;// 设置索引位置
                     } else {
                         while (p != 0) {
-                            p = _pfailure[p];
-                            next = _pnext[p] + t;
-                            if (_pkey[next] == t) {
-                                var len = _pcheck[next];
-                                if (len > 0) {
-                                    _find = true;
-                                    var idx = i;
+                            p = _pfailure[p];// 获取失败后指向的地址
+                            next = _pnext[p] + t;// ★ 下一个索引位置，只是可能，待验证
+                            if (_pkey[next] == t) { // 验证 是否为下一个索引位置
+                                var len = _pcheck[next];// 获取敏感词组的长度
+                                if (len > 0) {// 长度大于0，表示敏感词存在
+                                    _find = true;// 赋值，表示查找到了
+                                    var idx = i;// 索引
                                     while (len != 0) {
-                                        if (_pdict[_ptext[idx]] != 0xffff) { len--; }
-                                        result[idx] = true;
-                                        idx--;
+                                        if (_pdict[_ptext[idx]] != 0xffff) { len--; }// ★ 判断不是为空格， 长度减一
+                                        result[idx] = true;// 设置跳词标志
+                                        idx--; //索引减一
                                     }
                                 }
-                                p = next;
+                                p = next;// 设置索引位置
                                 break;
                             }
                         }
@@ -78,7 +80,7 @@ namespace ToolGood.TextFilter
 
                 }
             }
-            return _find;
+            return _find;// 返回是不是查找到了
         }
 
         #endregion

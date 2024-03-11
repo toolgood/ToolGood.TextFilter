@@ -27,7 +27,9 @@ namespace ToolGood.TextFilter.App.Datas.Results
             Index = index;
         }
 
-
+        /// <summary>
+        /// 类型
+        /// </summary>
         public string Code;
         public int TypeId;
 

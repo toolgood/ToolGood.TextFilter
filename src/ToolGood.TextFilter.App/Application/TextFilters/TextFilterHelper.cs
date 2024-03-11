@@ -120,7 +120,7 @@ namespace ToolGood.TextFilter.Application
             List<TempWordsResultItem> illegalWordsResults = new List<TempWordsResultItem>();
             var len = txt.Length;
             fixed (char* _ptext = &txt[0]) {
-                if (MemoryCache.Instance.UseBig) {
+                if (MemoryCache.Instance.UseBig) { // 没有用到
                     if (len < 5000) {
                         MemoryCache.Instance.KeywordSearch_34.FindAll(_ptext, in len, illegalWordsResults);// 2
                     } else {
@@ -152,12 +152,12 @@ namespace ToolGood.TextFilter.Application
         {
             TextSplit4 line = new TextSplit4(txt.Length);
             for (int i = 0; i < illegalWordsResults.Count; i++) {
-                line.AddWords(illegalWordsResults[i], keyword34_start_index);
+                line.AddWords(illegalWordsResults[i], keyword34_start_index); // 添加字词
             }
             var contactDict = MemoryCache.Instance.ContactSearch.GetContactDict();
-            line.RemoveMaxLengthContact(contactDict, txt);
+            line.RemoveMaxLengthContact(contactDict, txt); // 移除 较长的联系
 
-            line.Calculation(txt, _skipBitArray);
+            line.Calculation(txt, _skipBitArray);// 计算
             return line;
         }
         #endregion
@@ -298,19 +298,19 @@ namespace ToolGood.TextFilter.Application
         /// <returns></returns>
         public unsafe static IllegalWordsFindAllResult FindAll(in ReadStreamBase stream)
         {
-            var illegalWords1 = FindIllegalWords(in stream.TestingText);
+            var illegalWords1 = FindIllegalWords(in stream.TestingText); // 查出所有词
             foreach (var item in illegalWords1) {
                 item.Start = stream.Start[item.Start];
                 item.End = stream.End[item.End];
             }
-            var textSplit = BuildTextSplit(stream.Source, illegalWords1, MemoryCache.Instance.Keyword_34_Index_Start);
-            var fenciwords = textSplit.GetWordsContext();
-            textSplit.SetNplIndex(fenciwords);
-            var illegalWords2 = textSplit.GetIllegalWords();
-            var illegalWords3 = textSplit.GetIllegalWords2();
+            var textSplit = BuildTextSplit(stream.Source, illegalWords1, MemoryCache.Instance.Keyword_34_Index_Start); // 开始分割
+            var fenciwords = textSplit.GetWordsContext();// 获取分词
+            textSplit.SetNplIndex(fenciwords); // 设置 NPL词组 索引 ， 
+            var illegalWords2 = textSplit.GetIllegalWords();// 单组敏感词
+            var illegalWords3 = textSplit.GetIllegalWords2();// 多组敏感词
             textSplit = null;
             illegalWords1 = null;
-            if (illegalWords2.Count == 0 && illegalWords3.Count == 0) {
+            if (illegalWords2.Count == 0 && illegalWords3.Count == 0) { // 没有 敏感词 返回结果
                 IllegalWordsFindAllResult illegalWordsFindAllResult = new IllegalWordsFindAllResult();
                 illegalWordsFindAllResult.SentimentScore = CalcEmotionScore(fenciwords);
                 illegalWords3 = null;
@@ -320,23 +320,23 @@ namespace ToolGood.TextFilter.Application
             }
 
             IllegalWordsFindAllResult result = new IllegalWordsFindAllResult();
-            AnalysisSingleWordsResult(stream.Source, result, illegalWords2);
-            var items = MemoryCache.Instance.MultiWordsSearch.FindAll(illegalWords3);
-            AnalysisMultiWordsResult(stream.Source, result, items);
-            result.ContactItems = MemoryCache.Instance.ContactSearch.FindAll(illegalWords3);
+            AnalysisSingleWordsResult(stream.Source, result, illegalWords2); //解析 单组敏感词
+            var items = MemoryCache.Instance.MultiWordsSearch.FindAll(illegalWords3); // 多组敏感词 组合 查询 
+            AnalysisMultiWordsResult(stream.Source, result, items); // 解析 多组敏感词
+            result.ContactItems = MemoryCache.Instance.ContactSearch.FindAll(illegalWords3);// 联系方式查询
 
             items = null;
             illegalWords2 = null;
             illegalWords3 = null;
 
-            result.SentimentScore = CalcEmotionScore(fenciwords);
-            if (result.RejectSingleItems.Count > 0 || result.RejectMultiItems.Count > 0) {
+            result.SentimentScore = CalcEmotionScore(fenciwords); // 计算 情感值
+            if (result.RejectSingleItems.Count > 0 || result.RejectMultiItems.Count > 0) { // 屏蔽
                 result.RiskLevel = IllegalWordsRiskLevel.Reject;
                 result.Code = GetCode(result.RejectSingleItems, result.RejectMultiItems);
-            } else if (result.ReviewSingleItems.Count > 0 || result.ReviewMultiItems.Count > 0) {
+            } else if (result.ReviewSingleItems.Count > 0 || result.ReviewMultiItems.Count > 0) { // 复审
                 result.RiskLevel = IllegalWordsRiskLevel.Review;
                 result.Code = GetCode(result.ReviewSingleItems, result.ReviewMultiItems);
-            } else if (result.ContactItems.Count > 0) {
+            } else if (result.ContactItems.Count > 0) { // 有联系方式
                 result.RiskLevel = IllegalWordsRiskLevel.Review;
                 result.Code = "Contact";
             }
@@ -346,7 +346,11 @@ namespace ToolGood.TextFilter.Application
         }
 
         #region  CalcEmotionScore
-
+        /// <summary>
+        /// 计算 情感值
+        /// </summary>
+        /// <param name="keywordInfos"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static double CalcEmotionScore(in List<TempWordsResultItem> keywordInfos)
         {
@@ -376,56 +380,56 @@ namespace ToolGood.TextFilter.Application
 
         public unsafe static IllegalWordsReplaceResult Replace(in ReadStreamBase stream, in char replaceChar, in bool reviewReplace, in bool contactReplace)
         {
-            var temp = FindAll_Replace(stream, contactReplace);
+            var temp = FindAll_Replace(stream, contactReplace); // 查出所有词
             //    return Replace(stream, temp, replaceChar, reviewReplace, contactReplace);
             //}
             //public unsafe static IllegalWordsReplaceResult Replace(in ReadStreamBase stream, in IllegalWordsFindAllResult temp, in char replaceChar, in bool reviewReplace, in bool contactReplace)
             //{
             IllegalWordsReplaceResult result = new IllegalWordsReplaceResult();
-            if (temp.RejectSingleItems.Count > 0 || temp.RejectMultiItems.Count > 0) {
+            if (temp.RejectSingleItems.Count > 0 || temp.RejectMultiItems.Count > 0) { // 屏蔽
                 result.RiskLevel = IllegalWordsRiskLevel.Reject;
-                byte[] bytes = new byte[stream.Source.Length];
+                byte[] bytes = new byte[stream.Source.Length]; // 字符串标识
                 fixed (byte* _pbytes = &bytes[0]) {
-                    FindReplacePostion(stream, _pbytes, temp.RejectSingleItems, temp.RejectMultiItems);
+                    FindReplacePostion(stream, _pbytes, temp.RejectSingleItems, temp.RejectMultiItems); //查找 替换位置
                     if (reviewReplace && temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {
-                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);
+                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);//查找 替换位置
                     }
                     if (contactReplace && temp.ContactItems.Count > 0) {
-                        FindReplacePostion(stream, _pbytes, temp.ContactItems);
+                        FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
                     }
-                    result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);
+                    result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length); //替换字符
                 }
                 bytes = null;
-            } else if (reviewReplace) {
+            } else if (reviewReplace) {// 复审
                 if (temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {
                     result.RiskLevel = IllegalWordsRiskLevel.Reject;
-                    byte[] bytes = new byte[stream.Source.Length];
+                    byte[] bytes = new byte[stream.Source.Length];// 字符串标识
                     fixed (byte* _pbytes = &bytes[0]) {
-                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);
+                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);//查找 替换位置
                         if (contactReplace && temp.ContactItems.Count > 0) {
-                            FindReplacePostion(stream, _pbytes, temp.ContactItems);
+                            FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
                         }
-                        result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);
+                        result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);//替换字符
                     }
                     bytes = null;
                 } else if (contactReplace && temp.ContactItems.Count > 0) {
                     result.RiskLevel = IllegalWordsRiskLevel.Reject;
-                    byte[] bytes = new byte[stream.Source.Length];
+                    byte[] bytes = new byte[stream.Source.Length];// 字符串标识
                     fixed (byte* _pbytes = &bytes[0]) {
-                        FindReplacePostion(stream, _pbytes, temp.ContactItems);
-                        result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);
+                        FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
+                        result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);//替换字符
                     }
                     bytes = null;
                 }
-            } else if (contactReplace && temp.ContactItems.Count > 0) {
+            } else if (contactReplace && temp.ContactItems.Count > 0) { // 有联系方式
                 result.RiskLevel = IllegalWordsRiskLevel.Reject;
-                byte[] bytes = new byte[stream.Source.Length];
+                byte[] bytes = new byte[stream.Source.Length];// 字符串标识
                 fixed (byte* _pbytes = &bytes[0]) {
-                    FindReplacePostion(stream, _pbytes, temp.ContactItems);
-                    result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);
+                    FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
+                    result.Result = Replace(stream, _pbytes, replaceChar, stream.Source.Length);//替换字符
                 }
                 bytes = null;
-            } else if (temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {
+            } else if (temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {// 复审
                 result.RiskLevel = IllegalWordsRiskLevel.Review;
                 result.ReviewSingleItems = temp.ReviewSingleItems;
                 result.ReviewMultiItems = temp.ReviewMultiItems;
@@ -438,21 +442,21 @@ namespace ToolGood.TextFilter.Application
             if (temp.RejectSingleItems.Count > 0 || temp.RejectMultiItems.Count > 0) {
                 result.RiskLevel = IllegalWordsRiskLevel.Reject;
                 fixed (byte* _pbytes = &bytes[0]) {
-                    FindReplacePostion(stream, _pbytes, temp.RejectSingleItems, temp.RejectMultiItems);
+                    FindReplacePostion(stream, _pbytes, temp.RejectSingleItems, temp.RejectMultiItems);//查找 替换位置
                     if (reviewReplace && temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {
-                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);
+                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);//查找 替换位置
                     }
                     if (contactReplace && temp.ContactItems.Count > 0) {
-                        FindReplacePostion(stream, _pbytes, temp.ContactItems);
+                        FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
                     }
                 }
             } else if (reviewReplace) {
                 if (temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {
                     result.RiskLevel = IllegalWordsRiskLevel.Reject;
                     fixed (byte* _pbytes = &bytes[0]) {
-                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);
+                        FindReplacePostion(stream, _pbytes, temp.ReviewSingleItems, temp.ReviewMultiItems);//查找 替换位置
                         if (contactReplace && temp.ContactItems.Count > 0) {
-                            FindReplacePostion(stream, _pbytes, temp.ContactItems);
+                            FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
                         }
                     }
                 }
@@ -461,7 +465,7 @@ namespace ToolGood.TextFilter.Application
                     result.RiskLevel = IllegalWordsRiskLevel.Review;
                 }
                 fixed (byte* _pbytes = &bytes[0]) {
-                    FindReplacePostion(stream, _pbytes, temp.ContactItems);
+                    FindReplacePostion(stream, _pbytes, temp.ContactItems);//查找 替换位置
                 }
             } else if (temp.ReviewSingleItems.Count > 0 || temp.ReviewMultiItems.Count > 0) {
                 if (result.RiskLevel == IllegalWordsRiskLevel.Pass) {
@@ -479,9 +483,9 @@ namespace ToolGood.TextFilter.Application
             fixed (byte* _pbytes = &bytes[0]) {
                 for (int i = 0; i < text.Length; i++) {
                     var b = _pbytes[i];
-                    if (b == 0) {
+                    if (b == 0) { // 原字符
                         stringBuilder.Append(text[i]);
-                    } else if (b == 1) {
+                    } else if (b == 1) {// 替换 标记
                         stringBuilder.Append(replaceChar);
                     }
                 }
@@ -498,9 +502,9 @@ namespace ToolGood.TextFilter.Application
             StringBuilder stringBuilder = new StringBuilder();
             for (int i = 0; i < length; i++) {
                 var b = _pbytes[i];
-                if (b == 0) {
-                    stringBuilder.Append(text[i]);
-                } else if (b == 1) {
+                if (b == 0) { // 原字符
+                    stringBuilder.Append(text[i]); 
+                } else if (b == 1) { // 替换 标记
                     stringBuilder.Append(replaceChar);
                 }
             }
@@ -511,38 +515,38 @@ namespace ToolGood.TextFilter.Application
         internal unsafe static void FindReplacePostion(in ReadStreamBase stream, in byte* _pbytes, in List<SingleWordsResult> singles
             , in List<MultiWordsResult> multis)
         {
-            for (int idx = 0; idx < singles.Count; idx++) {
+            for (int idx = 0; idx < singles.Count; idx++) { // 单组敏感词
                 var item = singles[idx];
                 if (item.TypeId == 2) {
-                    var start = stream.Start[item.Start];
-                    var end = stream.Start[item.End];
+                    var start = stream.Start[item.Start]; //开始位置
+                    var end = stream.Start[item.End]; //结束位置
                     for (int j = start; j <= end; j++) {
-                        _pbytes[j] = 2;
+                        _pbytes[j] = 2; // 忽略 标记
                     }
                 } else {
                     for (int j = item.Start; j <= item.End; j++) {
                         if (_skipBitArray[stream.TestingText[j]] == false) {//跳過符號
-                            var start = stream.Start[j];
-                            var end = stream.End[j];
-                            _pbytes[start] = 1;
+                            var start = stream.Start[j]; //开始位置
+                            var end = stream.End[j]; //结束位置
+                            _pbytes[start] = 1; // 替换 标记
                             for (int k = start + 1; k <= end; k++) {
-                                _pbytes[k] = 2;
+                                _pbytes[k] = 2; // 忽略 标记
                             }
                         }
                     }
                 }
             }
-            for (int idx = 0; idx < multis.Count; idx++) {
+            for (int idx = 0; idx < multis.Count; idx++) { // 多组敏感词
                 var multi = multis[idx];
                 for (int i = 0; i < multi.Items.Length; i++) {
                     var item = multi.Items[i];
                     for (int j = item.Start; j <= item.End; j++) {
                         if (_skipBitArray[stream.TestingText[j]] == false) {//跳過符號
-                            var start = stream.Start[j];
-                            var end = stream.End[j];
-                            _pbytes[start] = 1;
+                            var start = stream.Start[j];//开始位置
+                            var end = stream.End[j];//结束位置
+                            _pbytes[start] = 1; // 替换 标记
                             for (int k = start + 1; k <= end; k++) {
-                                _pbytes[k] = 2;
+                                _pbytes[k] = 2; // 忽略 标记
                             }
                         }
                     }
@@ -555,10 +559,10 @@ namespace ToolGood.TextFilter.Application
         {
             for (int idx = 0; idx < singles.Count; idx++) {
                 var item = singles[idx];
-                var start = stream.Start[item.Start];
-                var end = stream.Start[item.End];
+                var start = stream.Start[item.Start]; //开始位置
+                var end = stream.Start[item.End]; //结束位置
                 for (int j = start; j <= end; j++) {
-                    _pbytes[j] = 1;
+                    _pbytes[j] = 1;  // 替换 标记
                 }
             }
         }
@@ -567,12 +571,12 @@ namespace ToolGood.TextFilter.Application
 
         internal static IllegalWordsFindAllResult FindAll_Replace(in ReadStreamBase stream, in bool contactReplace)
         {
-            var illegalWords1 = FindIllegalWords(in stream.TestingText);
-            var textSplit = BuildTextSplit(stream.TestingText, illegalWords1, MemoryCache.Instance.Keyword_34_Index_Start);
-            var fenciwords = textSplit.GetWordsContext();
-            textSplit.SetNplIndex(fenciwords);
-            var illegalWords2 = textSplit.GetIllegalWords();
-            var illegalWords3 = textSplit.GetIllegalWords2();
+            var illegalWords1 = FindIllegalWords(in stream.TestingText); // 查找 字词
+            var textSplit = BuildTextSplit(stream.TestingText, illegalWords1, MemoryCache.Instance.Keyword_34_Index_Start);// 分割
+            var fenciwords = textSplit.GetWordsContext(); //获取分词
+            textSplit.SetNplIndex(fenciwords);// 设置 NPL词组 索引 ， 
+            var illegalWords2 = textSplit.GetIllegalWords();// 单组敏感词
+            var illegalWords3 = textSplit.GetIllegalWords2();// 多组敏感词
             textSplit = null;
             fenciwords = null;
             illegalWords1 = null;
@@ -584,11 +588,11 @@ namespace ToolGood.TextFilter.Application
             }
 
             IllegalWordsFindAllResult result = new IllegalWordsFindAllResult();
-            AnalysisSingleWordsResult(stream.TestingText, result, illegalWords2);
-            var items = MemoryCache.Instance.MultiWordsSearch.FindAll(illegalWords3);
-            AnalysisMultiWordsResult(stream.TestingText, result, items);
+            AnalysisSingleWordsResult(stream.TestingText, result, illegalWords2);//解析 单组敏感词
+            var items = MemoryCache.Instance.MultiWordsSearch.FindAll(illegalWords3);// 多组敏感词 组合 查询 
+            AnalysisMultiWordsResult(stream.TestingText, result, items);// 解析 多组敏感词
             if (contactReplace) {
-                result.ContactItems = MemoryCache.Instance.ContactSearch.FindAll(illegalWords3);
+                result.ContactItems = MemoryCache.Instance.ContactSearch.FindAll(illegalWords3); // 联系方式查询
             }
             items = null;
 

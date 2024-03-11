@@ -207,7 +207,12 @@ namespace ToolGood.TextFilter.Commons
                 bytes = null;
             }
         }
-
+        /// <summary>
+        /// 加载文件
+        /// </summary>
+        /// <param name="br"></param>
+        /// <param name="errorMessage"></param>
+        /// <returns></returns>
         private bool LoadTextFilter(BinaryReader br, out string errorMessage)
         {
             // 解密

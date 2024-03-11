@@ -40,12 +40,19 @@ namespace ToolGood.TextFilter.Datas
         [Column("Level_3_UseType")]
         public byte? Level_3_UseType { get; set; }
 
+        /// <summary>
+        /// 是否使用时间
+        /// </summary>
         [Column("UseTime")]
         public bool UseTime { get; set; }
-
+        /// <summary>
+        /// 开始时间
+        /// </summary>
         [Column("StartTime")]
         public DateTime? StartTime { get; set; }
-
+        /// <summary>
+        /// 结束时间
+        /// </summary>
         [Column("EndTime")]
         public DateTime? EndTime { get; set; }
 

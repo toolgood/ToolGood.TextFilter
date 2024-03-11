@@ -6,6 +6,9 @@ using System.Linq;
 
 namespace ToolGood.TextFilter
 {
+    /// <summary>
+    /// 优化Dictionary<ushort,int>类型
+    /// </summary>
     public struct IntDictionary
     {
         private ushort[] _keys;
@@ -56,6 +59,11 @@ namespace ToolGood.TextFilter
         }
 
         #region Load
+        /// <summary>
+        /// 加载数据
+        /// </summary>
+        /// <param name="br"></param>
+        /// <returns></returns>
         public static IntDictionary Load(BinaryReader br)
         {
             var len = br.ReadInt32();

@@ -14,7 +14,9 @@ namespace ToolGood.TextFilter
         ReadStreamBase Replace(ReadStreamBase src, in bool skipBidi);
 
     }
-
+    /// <summary>
+    /// 转义类
+    /// </summary>
     public class TranslateSearch5 : ITranslateSearch
     {
 

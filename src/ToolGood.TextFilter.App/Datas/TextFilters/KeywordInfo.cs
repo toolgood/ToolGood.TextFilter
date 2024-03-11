@@ -8,11 +8,11 @@ namespace ToolGood.TextFilter.App.Datas.TextFilters
     public struct KeywordInfo 
     {
         public int Id;
-        public ushort TypeId;
-
-        public byte RiskLevel;
-        public byte MatchType;
-        public byte KeywordLength;
+        public ushort TypeId; // 类型
+         
+        public byte RiskLevel; //风险等级
+        public byte MatchType; //匹配类型
+        public byte KeywordLength; //字符长度
 
 
         /// <summary>

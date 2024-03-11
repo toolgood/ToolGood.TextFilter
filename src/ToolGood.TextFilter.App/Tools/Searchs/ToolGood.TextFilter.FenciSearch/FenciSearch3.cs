@@ -8,7 +8,7 @@ using ToolGood.TextFilter.App.Datas.TextFilters;
 
 namespace ToolGood.TextFilter
 {
-    public interface IFenciSearch 
+    public interface IFenciSearch
     {
         void Set_GetMatchKeyword(Func<int, FenciKeywordInfo> func);
 
@@ -49,67 +49,67 @@ namespace ToolGood.TextFilter
 
         public unsafe void FindAll(char* _ptext, in int length, List<TempWordsResultItem> result)
         {
-            fixed (ushort* _pdict = &_dict[0])
-            fixed (ushort* _pkey = &_key[0])
-            fixed (Int32* _pnext = &_next[0])
-            fixed (Int32* _pcheck = &_check[0])
-            fixed (Int32* _pfailure = &_failure[0]) {
-                var p = 0;
+            fixed (ushort* _pdict = &_dict[0])// ★ 使用指针，提高性能
+            fixed (ushort* _pkey = &_key[0])// ★ 使用指针，提高性能
+            fixed (Int32* _pnext = &_next[0])// ★ 使用指针，提高性能
+            fixed (Int32* _pcheck = &_check[0])// ★ 使用指针，提高性能
+            fixed (Int32* _pfailure = &_failure[0]) {// ★ 使用指针，提高性能
+                var p = 0;// 初始索引位置
 
                 for (int i = 0; i < length; i++) {
-                    var t1 = _ptext[i];
+                    var t1 = _ptext[i];// 获取字符
 
-                    var t = _pdict[t1];
-                    if (t == 1) { continue; }
-                    if (t <= _firstMaxChar) { p = t; continue; }
+                    var t = _pdict[t1];// 转成映射值
+                    if (t == 1) { continue; }//★ 映射值为1时，为跳词
+                    if (t <= _firstMaxChar) { p = t; continue; }//★ 映射值<=_firstMaxChar 时，为特殊敏感词字符，字符只出现在敏感词的第一位
 
-                    var next = _pnext[p] + t;
-                    if (_pkey[next] == t) {
-                        var index = _pcheck[next];
-                        if (index != 0 && CheckNextChar(_ptext, length, t, i, _pdict)) {
-                            var guides = _guides[index];
-                            var start = i;
-                            var tempLen = 1;
+                    var next = _pnext[p] + t;// 下一个索引位置，只是可能，待验证
+                    if (_pkey[next] == t) {// 验证 是否为下一个索引位置
+                        var index = _pcheck[next];// 获取敏感词组索引位置，大于0为真实有效
+                        if (index != 0 && CheckNextChar(_ptext, length, t, i, _pdict)) {//★ 检测下一字符，防误判英文数字
+                            var guides = _guides[index];// 获取敏感词组索引
+                            var start = i;// 敏感词开始位置
+                            var tempLen = 1;//★ 临时长度
                             var tc = t;
                             for (int ij = 0; ij < guides.Length; ij++) {
-                                var item = guides[ij];
+                                var item = guides[ij];// 敏感词信息索引
 
-                                var keyInfo = GetMatchKeyword(item);
-                                var len = keyInfo.KeywordLength;
+                                var keyInfo = GetMatchKeyword(item);// 获取敏感词信息
+                                var len = keyInfo.KeywordLength;//★ 获取敏感词长度。敏感词信息不记录文本，只记录长度，可以缩小内存使用量
                                 while (tempLen < len) {
-                                    if ((tc = _pdict[_ptext[--start]]) != 1) { tempLen++; }
+                                    if ((tc = _pdict[_ptext[--start]]) != 1) { tempLen++; }//★ 跳过跳词，非跳词，临时长度+1
                                 }
-                                if (CheckPreChar(_ptext, tc, start, _pdict)) {
-                                    result.Add(new TempWordsResultItem(start, i, keyInfo));
+                                if (CheckPreChar(_ptext, tc, start, _pdict)) {//★ 检测 start 前面的字符，防误判英文数字 
+                                    result.Add(new TempWordsResultItem(start, i, keyInfo));//添加到结果集
                                 }
                             }
                         }
-                        p = next;
+                        p = next;// 设置索引位置
                     } else {
                         while (p != 0) {
-                            p = _pfailure[p];
-                            next = _pnext[p] + t;
-                            if (_pkey[next] == t) {
-                                var index = _pcheck[next];
-                                if (index != 0 && CheckNextChar(_ptext, length, t, i, _pdict)) {
-                                    var guides = _guides[index];
-                                    var start = i;
-                                    var tempLen = 1;
+                            p = _pfailure[p];//★ 获取匹配失败后的索引位置
+                            next = _pnext[p] + t;// 下一个索引位置，只是可能，待验证
+                            if (_pkey[next] == t) {// 验证 是否为下一个索引位置
+                                var index = _pcheck[next];// 获取敏感词组索引位置，大于0为真实有效
+                                if (index != 0 && CheckNextChar(_ptext, length, t, i, _pdict)) {//★ 检测下一字符，防误判英文数字 
+                                    var guides = _guides[index];// 获取敏感词组索引
+                                    var start = i;// 敏感词开始位置
+                                    var tempLen = 1;//★ 临时长度
                                     var tc = t;
                                     for (int ij = 0; ij < guides.Length; ij++) {
-                                        var item = guides[ij];
+                                        var item = guides[ij];// 敏感词信息索引
 
-                                        var keyInfo = GetMatchKeyword(item);
-                                        var len = keyInfo.KeywordLength;
+                                        var keyInfo = GetMatchKeyword(item);// 获取敏感词信息
+                                        var len = keyInfo.KeywordLength;// 获取敏感词长度。敏感词信息不记录文本，只记录长度，可以缩小内存使用量
                                         while (tempLen < len) {
-                                            if ((tc = _pdict[_ptext[--start]]) != 1) { tempLen++; }
+                                            if ((tc = _pdict[_ptext[--start]]) != 1) { tempLen++; }//★ 跳过跳词，非跳词，临时长度+1
                                         }
-                                        if (CheckPreChar(_ptext, tc, start, _pdict)) {
-                                            result.Add(new TempWordsResultItem(start, i, keyInfo));
+                                        if (CheckPreChar(_ptext, tc, start, _pdict)) {//★ 检测 start 前面的字符，防误判英文数字 
+                                            result.Add(new TempWordsResultItem(start, i, keyInfo));//添加到结果集
                                         }
                                     }
                                 }
-                                p = next;
+                                p = next;// 设置索引位置
                                 break;
                             }
                         }
@@ -118,6 +118,15 @@ namespace ToolGood.TextFilter
                 }
             }
         }
+        /// <summary>
+        /// 防止误杀英文数字敏感词，如敏感词【sm】可能错误匹配到【smile】。
+        /// </summary>
+        /// <param name="_ptext"></param>
+        /// <param name="length"></param>
+        /// <param name="t"></param>
+        /// <param name="i"></param>
+        /// <param name="_pdict"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckNextChar(char* _ptext, int length, ushort t, int i, ushort* _pdict)
         {
@@ -127,7 +136,14 @@ namespace ToolGood.TextFilter
             if (tt < _azNumMinChar || tt > _azNumMaxChar) { return true; }
             return false;
         }
-
+        /// <summary>
+        /// 防止误杀英文数字敏感词，如敏感词【sm】可能错误匹配到【smile】。
+        /// </summary>
+        /// <param name="_ptext"></param>
+        /// <param name="t"></param>
+        /// <param name="i"></param>
+        /// <param name="_pdict"></param>
+        /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private unsafe bool CheckPreChar(char* _ptext, ushort t, int i, ushort* _pdict)
         {

@@ -4,18 +4,20 @@ using System.Runtime.CompilerServices;
 
 namespace ToolGood.TextFilter
 {
+    /// <summary>
+    /// TempMultiWords采用双向链表结构
+    /// </summary>
     class TempMultiWords
     {
-        public int Ptr;    
-        public int NplIndex;  
-        public int MaxNextIndex; 
+        public int Ptr;                 // 指针
+        public int NplIndex;            // NPL索引
+        public int MaxNextIndex;        // 最大下个NPL索引
+        public int ResultIndex;         // 结果索引
+        public TempMultiWords Parent;   // 上个节点
+        public TempWordsResultItem Item;    // 多组敏感词部分
+        public TempMultiWords After;    // 暂存下个节点
 
-        public int ResultIndex; 
-        public TempMultiWords Parent;
-        public TempWordsResultItem Item;
 
-        public TempMultiWords After;
- 
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void ClearAll()
